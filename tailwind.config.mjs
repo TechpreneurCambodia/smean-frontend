@@ -9,8 +9,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter", "Arial", "sans-serif"], // Default sans-serif font
-        body: ["Roboto", "sans-serif"], // Custom body font
+        sans: ["Poppins", "sans-serif"], // Default sans-serif font
+        body: ["Poppins", "sans-serif"], // Custom body font
         heading: ["Poppins", "sans-serif"], // Custom heading font
       },
       fontSize: {
