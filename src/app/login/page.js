@@ -30,7 +30,6 @@ export default function Page() {
         usernameOrEmail: email,
         password,
       });
-      console.log("Username", email);
       console.log("response", response);
       if (response.status === 200 || response.status === 201) {
         router.push("/home");
@@ -42,7 +41,7 @@ export default function Page() {
       } else {
         setErrorMessage("An error occurred. Please try again."); 
       }
-      console.log("Username", email);
+      console.log("Errr", error);
     }
   };
 
