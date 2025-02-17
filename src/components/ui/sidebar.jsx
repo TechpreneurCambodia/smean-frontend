@@ -3,6 +3,8 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import { PanelLeft } from "lucide-react";
+import { DialogTitle } from "@radix-ui/react-dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
@@ -194,6 +196,9 @@ const Sidebar = React.forwardRef(
             }}
             side={side}
           >
+            <VisuallyHidden>
+              <DialogTitle>Sidebar</DialogTitle>
+            </VisuallyHidden>
             <div className="flex h-full w-full flex-col">{children}</div>
           </SheetContent>
         </Sheet>
@@ -218,7 +223,7 @@ const Sidebar = React.forwardRef(
             variant === "floating" || variant === "inset"
               ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))]"
               : "group-data-[collapsible=icon]:w-[--sidebar-width-icon]",
-            "duration-2 00" // Adjust the duration here
+            "duration-200" // Adjust the duration here
           )}
         />
         <div
