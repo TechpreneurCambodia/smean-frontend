@@ -1,13 +1,16 @@
 import React from "react";
 
-function FloatingInput({ type = "text", placeholder }) {
+function FloatingInput({ type = "text", placeholder, name, value, onChange }) {
   return (
     <div className="relative z-0">
       <input
         type={type}
         id={placeholder.toLowerCase().replace(/\s+/g, "_")}
+        name={name}
         className="block py-2.5 px-0 w-full text-sm text-heading text-darkGray bg-transparent border-0 border-b-2 border-black -white focus:outline-none focus:ring-0 focus:border-blue-600 peer"
         placeholder=" "
+        value = {value}
+        onChange = {onChange}
       />
       <label
         htmlFor={placeholder.toLowerCase().replace(/\s+/g, "_")}
