@@ -12,8 +12,8 @@ function Page() {
       <div className="flex flex-col w-screen h-screen">
         <Header className="w-full" />
         <div className="flex flex-grow bg-gray-200">
-          <div className="flex w-full ">
-            <div className="flex w-full ">
+          <div className="flex w-full">
+            <div className="flex w-full">
               <AppSidebar />
               <div className="flex flex-grow">
                 <SidebarTrigger />
