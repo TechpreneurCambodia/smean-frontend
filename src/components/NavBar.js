@@ -2,7 +2,7 @@ import React from 'react'
 
 function NavBar() {
   return (
-    <div className="navbar bg-white">
+    <div className="navbar bg-white drop-shadow-md">
       <div className="flex-1">
         <img className="btn btn-ghost"
           alt="Tailwind CSS Navbar component"
