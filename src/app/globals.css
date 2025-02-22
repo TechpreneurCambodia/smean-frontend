@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 body {
-  font-family: Poppins, sans-serif;
-  @apply font-body text-base text-foreground;
+  font-family: var(--font-body), sans-serif; /* Use the Next.js font variable */
+  @apply text-base text-foreground;
 }
 
 @layer base {
