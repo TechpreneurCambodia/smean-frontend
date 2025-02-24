@@ -30,7 +30,7 @@ export default function Page() {
         <SidebarProvider defaultOpen={false}>
             <div className="flex flex-col w-screen h-screen overflow">
                 <NavBar />
-                <div className="flex flex-grow bg-gray-200">
+                <div className="flex flex-grow bg-white">
                     <div className="flex w-full">
                         <AppSidebar />
                         <div className="flex flex-grow">
