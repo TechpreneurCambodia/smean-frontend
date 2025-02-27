@@ -31,7 +31,7 @@ import AppSideBarFooter from "./AppSideBarFooter";
 // Menu items.
 const items = [
   {
-    title: "Home",
+    title: "ផ្ទះ",
     url: "#",
     icon: Home,
   },
@@ -46,7 +46,7 @@ const items = [
     icon: Calendar,
   },
   {
-    title: "Search",
+    title: "ស្វែងរក",
     url: "#",
     icon: Search,
   },
@@ -62,7 +62,7 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel>ម៉ឺនុយកម្មវិធី</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

@@ -19,7 +19,7 @@ function Player() {
           width="128"
           height="128"
           viewBox="0 0 128 128"
-          className="duration-500 border-4 rounded-full shadow-md border-zinc-400 border-spacing-5 animate-[spin_3s_linear_infinite] transition-all"
+          className="duration-3000 border-4 rounded-full shadow-md border-zinc-400 border-spacing-5 animate-[spin_3s_linear_infinite] transition-all"
         >
           <svg>
             <rect width="128" height="128" fill="black"></rect>
