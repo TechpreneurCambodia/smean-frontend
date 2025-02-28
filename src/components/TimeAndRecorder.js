@@ -1,11 +1,10 @@
-"use client"; // Ensure this is treated as a client component in Next.js
-
-import { useState, useRef, useEffect } from "react";
+// "use client";
+"use client"
+import { useState, useRef } from "react";
 import { MicrophoneIcon, StopIcon } from "@heroicons/react/solid";
 
-const TimeAndRecorder = () => {
+const TimeAndRecorder = ({ setAudioUrl }) => {
   const [recording, setRecording] = useState(false);
-  const [audioUrl, setAudioUrl] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0); // Time in milliseconds
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -33,7 +32,7 @@ const TimeAndRecorder = () => {
     mediaRecorder.onstop = () => {
       const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
       const audioUrl = URL.createObjectURL(audioBlob);
-      setAudioUrl(audioUrl);
+      setAudioUrl(audioUrl); // Send to parent (RecordPage)
       clearInterval(timerRef.current);
     };
 
@@ -46,7 +45,7 @@ const TimeAndRecorder = () => {
     // Start timer
     timerRef.current = setInterval(() => {
       setElapsedTime(Date.now() - startTimeRef.current);
-    }, 1000); // Update every second
+    }, 1000);
   };
 
   // Stop recording
@@ -62,14 +61,17 @@ const TimeAndRecorder = () => {
 
   return (
     <div className="p-4 bg-gray-100 rounded-lg shadow-lg max-w-md mx-auto text-center">
-      <h2 className="font-bold text-[32px] flex items-center justify-center gap-2">Voice Recorder</h2>
-      
-      {/* Timer with hover effect */}
+      <h2 className="font-semibold flex items-center justify-center gap-2">
+      ឧបករណ៍ថតសំឡេង
+      </h2>
+
+      {/* Timer */}
       <div className="text-2xl font-mono mt-2 hover:cursor-pointer hover:text-green-500 transition duration-200">
         <span className="text-gray-500">{minutes}:</span>
         <span className="text-green-500">{seconds}</span>
       </div>
 
+      {/* Record Button */}
       <div className="flex items-center justify-center gap-4 mt-4">
         <button
           className={`btn ${recording ? "btn-red" : "btn-green"} p-3 rounded-full`}
@@ -82,17 +84,6 @@ const TimeAndRecorder = () => {
           )}
         </button>
       </div>
-
-      {audioUrl && (
-        <div className="mt-4">
-          <h3 className="font-medium text-lg">ព័ត៌មានលម្អិតនៃការថត</h3>
-          <p>រយៈពេល: {minutes}:{seconds}</p>
-          <audio controls>
-            <source src={audioUrl} type="audio/wav" />
-            Your browser does not support the audio element.
-          </audio>
-        </div>
-      )}
     </div>
   );
 };

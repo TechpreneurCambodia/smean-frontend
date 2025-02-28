@@ -9,6 +9,7 @@ import DateTime from '../../components/DateTime'
 
 function page() {
   return (
+    
     <div className='m-4'>
         <Logo/>
         <DateTime/>
