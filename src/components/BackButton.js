@@ -8,7 +8,7 @@ const BackButton = () => {
 
   return (
     <button
-      onClick={() => router.back()}
+      onClick={() => router.push('/uploadtranscript')}
       className="flex items-center gap-2 text-black hover:underline"
     >
       <ArrowLeft className="w-5 h-5" />

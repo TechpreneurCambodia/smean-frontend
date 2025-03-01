@@ -2,9 +2,9 @@ import React from 'react'
 
 function WholeSummary() {
   return (
-    <div>
+    <div className='p-8'>
       <div>
-       <p className="ml-96 text-[16px] text-gray-500">00:00-05:00</p>
+       <p className="  ml-96 text-[16px] text-gray-500 ">00:00-05:00</p>
 
       </div>
         

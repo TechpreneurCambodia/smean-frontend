@@ -9,7 +9,7 @@ function SummaryTranscript() {
 
   return (
     <div>
-      <section className="border-t p-4 flex justify-end">
+      <section className="border-t p-4 flex justify-center">
         <div className="w-full max-w-md">
           <h2 className="font-bold text-[36px]">សង្ខេបប្រតិចារិក</h2>
           <div className="mt-4 space-y-4">
@@ -31,7 +31,7 @@ function SummaryTranscript() {
           {/* "See More" Button */}
           <div className="mt-4 text-right">
             <button
-              onClick={() => router.push("/full-transcript")}
+              onClick={() => router.push('/allsummary')}
               className="text-blue-500 hover:underline text-lg"
             >
               មើលបន្ថែម →

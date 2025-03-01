@@ -15,9 +15,14 @@ function Page() {
         អេ អឹម ខេ និយាយអំពីការគាំទ្រផ្នែកព័ត៌មានវិទ្យា
         <Pencil className="w-5 h-5 text-gray-500 cursor-pointer hover:text-black" />
       </h1>
-
-      <WholeSummary />
-      <WholeSummary />
+    <div className="p-2">
+    <WholeSummary />
+    <div className="mt-1">
+      <WholeSummary /></div>
+    
+    </div>
+      
+      
     </div>
   );
 }
