@@ -3,6 +3,7 @@ import Drawer from "@/components/Drawer";
 import React from "react";
 import Welcome from "./Welcome";
 import Header from "@/components/Header";
+import NavBar from "@/components/NavBar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSideBar";
 
@@ -10,7 +11,7 @@ function Page() {
   return (
     <SidebarProvider>
       <div className="flex flex-col w-screen h-screen">
-        <Header className="w-full" />
+        <NavBar />
         <div className="flex flex-grow bg-gray-200">
           <div className="flex w-full">
             <div className="flex w-full">
