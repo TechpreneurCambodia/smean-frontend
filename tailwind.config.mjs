@@ -39,11 +39,14 @@ export default {
   				foreground: 'hsl(var(--primary-foreground))'
   			},
   			white: '#FFFFFF',
+			primary : '#0D6074',
   			gray: '#DEDEDE',
+			dark_gray : '#949494',
   			black70: 'rgba(0, 0, 0, 0.7)',
   			darkGray: '#4A4A4A',
   			primary70: 'rgba(163, 225, 250, 0.7)',
   			black: '#000000',
+			primary10: '#E7EFF1',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
