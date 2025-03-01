@@ -1,10 +1,6 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import InputField from "@/components/InputField";
-import Button from "@/components/Button";
-import SocialLogin from "@/components/SocialLogin";
-import Link from "next/link";
 
 export default function Page() {
   const router = useRouter(); // Initialize the router
