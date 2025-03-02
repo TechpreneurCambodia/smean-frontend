@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 
-function TranscriptCard({
+function NoteCard({
   heading = "This is heading",
   description = "Card description with lots of great facts and interesting details.",
   href = "#"
@@ -27,7 +27,7 @@ function TranscriptCard({
 
   const headingStyle = {
     fontSize: '17px',
-    fontWeight: '400',
+    fontWeight: '600',
     lineHeight: '20px',
     color: isHovered ? 'rgba(255, 255, 255, 0.8)' : '#666',
     margin: '0',
@@ -88,14 +88,9 @@ function TranscriptCard({
         <div style={beforeStyle}></div>
         <p style={headingStyle}>{heading}</p>
         <p style={descriptionStyle} className="small">{description}</p>
-        <div style={goCornerStyle} className="go-corner">
-          <div style={goArrowStyle} className="go-arrow">
-            →
-          </div>
-        </div>
       </a>
     </div>
   );
 }
 
-export default TranscriptCard;
+export default NoteCard;
