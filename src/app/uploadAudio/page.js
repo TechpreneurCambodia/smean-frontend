@@ -27,15 +27,15 @@ export default function Page() {
     return (
         <Layout>
             <div className="flex flex-col flex-grow">
-                <div className="text-4xl font-bold my-4 sm:my-6 md:my-8">
-                    បញ្ចូលប្រតិចារិក/Upload and Transcript
+                <div className="text-4xl font-bold my-4 sm:mt-10 md:mt-8 mt-10">
+                    បញ្ចូលឯកសារ
                 </div>
                 <div className="flex flex-col items-center">
-                    <Steps />
+                    <Steps hasFiles={uploadedFiles.length > 0} />
                 </div>
                 <div className="mb-4">
                     <div className="text-2xl font-semibold">
-                        * បញ្ចូលប្រតិចារិក
+                        * លក្ខខណ្ឌក្នុងការបញ្ចូលឯកសារ
                     </div>
                     <div className="text-lg font-medium">
                         ទំហំឯកសារផ្ទុកឡើងអតិបរិមាគឺ 1GB (អូឌីយ៉ូ)

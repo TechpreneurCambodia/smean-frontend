@@ -4,43 +4,69 @@ function UploadBox({ onFilesSelected }) {
     const [isDragging, setIsDragging] = useState(false);
     const [files, setFiles] = useState([]);
     const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-    const [selectedFileIndex, setSelectedFileIndex] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const onDrop = useCallback((e) => {
         e.preventDefault();
         e.stopPropagation();
         setIsDragging(false);
-        const droppedFiles = Array.from(e.dataTransfer.files);
-        handleFiles(droppedFiles);
+        handleFiles(Array.from(e.dataTransfer.files));
     }, []);
 
     const onFileSelect = (e) => {
-        const selectedFiles = Array.from(e.target.files);
-        handleFiles(selectedFiles);
+        handleFiles(Array.from(e.target.files));
     };
 
     const handleFiles = (newFiles) => {
-        // Ensure new files are appended to the existing list, with detailed duplicate checking
-        const uniqueFiles = [...files];
-        newFiles.forEach(newFile => {
-            // Check for duplicates by name and size to ensure uniqueness (more robust than just name)
-            if (!uniqueFiles.some(file => file.name === newFile.name && file.size === newFile.size)) {
-                uniqueFiles.push(newFile);
-            }
+        const validFiles = newFiles.filter(
+            (newFile) =>
+                !files.some(
+                    (file) => file.name === newFile.name && file.size === newFile.size
+                )
+        );
+    
+        const filePromises = validFiles.map((file) => {
+            return new Promise((resolve) => {
+                const fileURL = URL.createObjectURL(file);
+                const audio = new Audio(fileURL);
+    
+                audio.onloadedmetadata = () => {
+                    resolve({
+                        name: file.name,
+                        size: file.size,
+                        type: file.type,
+                        duration: Math.round(audio.duration), // Convert to seconds
+                        fileURL, // Save for preview
+                    });
+                };
+    
+                // Handle cases where metadata might not load
+                audio.onerror = () => {
+                    resolve({
+                        name: file.name,
+                        size: file.size,
+                        type: file.type,
+                        duration: 0, // Fallback duration
+                        fileURL,
+                    });
+                };
+            });
         });
-        setFiles(uniqueFiles);
-        if (onFilesSelected) onFilesSelected(uniqueFiles);
+    
+        Promise.all(filePromises).then((updatedFiles) => {
+            setFiles((prevFiles) => [...prevFiles, ...updatedFiles]);
+            if (onFilesSelected) onFilesSelected([...files, ...updatedFiles]);
+        });
     };
+    
 
     const onDragOver = (e) => {
         e.preventDefault();
-        e.stopPropagation();
         setIsDragging(true);
     };
 
     const onDragLeave = (e) => {
         e.preventDefault();
-        e.stopPropagation();
         setIsDragging(false);
     };
 
@@ -49,8 +75,8 @@ function UploadBox({ onFilesSelected }) {
         if (onFilesSelected) onFilesSelected([]);
     };
 
-    const viewFile = (index) => {
-        setSelectedFileIndex(index);
+    const viewFile = (file) => {
+        setSelectedFile(file);
         setIsPreviewOpen(true);
     };
 
@@ -60,10 +86,19 @@ function UploadBox({ onFilesSelected }) {
         if (onFilesSelected) onFilesSelected(updatedFiles);
     };
 
+    // Function to format duration (seconds to minutes if > 60s)
+    const formatDuration = (duration) => {
+        if (duration > 60) {
+            const minutes = Math.floor(duration / 60);
+            const remainingSeconds = duration % 60;
+            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')} min`; // e.g., "2:30 min"
+        }
+        return `${duration} sec`;
+    };
+
     return (
         <div 
-            className={`border-2 border-dashed border-sky-400 rounded-lg mx-4 sm:mx-8 md:mx-0 my-4 p-6
-                ${isDragging ? 'bg-sky-100' : 'bg-white'} transition-colors duration-300 hover:shadow-md`}
+            className={`border-2 border-dashed border-sky-400 rounded-lg mx-4 sm:mx-8 md:mx-0 my-4 p-6 w-full max-w-4xl mx-auto ${isDragging ? 'bg-sky-100' : 'bg-white'} transition-colors duration-300 hover:shadow-md`}
             onDrop={onDrop}
             onDragOver={onDragOver}
             onDragLeave={onDragLeave}
@@ -75,13 +110,13 @@ function UploadBox({ onFilesSelected }) {
                         src="/upload.svg" 
                         alt="upload" 
                     />
-                    <p className="text-sm sm:text-base text-center text-gray-700">
+                    <p className="text-sm sm:text-lg text-center text-gray-700">
                         អូស និងទម្លាក់កំណត់ត្រានៅទីនេះ ឬ
                     </p>
-                    <p className="text-sky-800 text-sm sm:text-base my-2 hover:underline">
+                    <p className="text-primary text-sm sm:text-lg my-2 hover:underline">
                         ជ្រើសរើសឯកសារពីឧបករណ៍
                     </p>
-                    <p className="font-light text-xs sm:text-sm text-gray-600">
+                    <p className="font-light text-xs sm:text-base text-gray-600">
                         ទម្រង់គាំទ្រ: mp3, wav, mov
                     </p>
                     <input
@@ -99,41 +134,46 @@ function UploadBox({ onFilesSelected }) {
                     <h3 className="text-lg font-semibold text-gray-800 mb-2">
                         ឯកសារដែលបានផ្ទុកឡើង ({files.length})
                     </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="flex flex-col gap-3 w-full">
+                        {/* Table Header */}
+                        <div className="flex flex-row justify-between w-full bg-primary rounded-xl p-2 text-white">
+                            <div>ឈ្មោះ</div>
+                            <div className="flex flex-row gap-5">
+                                <div className='mr-5'>ទំហំ</div>
+                                <div className='mr-10'>រយៈពេល</div>
+                            </div>
+                        </div>
+
+                        {/* Table Data - Clickable rows for preview with enhanced hover effect */}
                         {files.map((file, index) => (
-                            <div
-                                key={index}
-                                className="border border-gray-300 rounded-lg p-4 bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+                            <div 
+                                key={index} 
+                                className="flex flex-row justify-between w-full bg-gray-500 rounded-xl p-2 text-black cursor-pointer hover:bg-gray-200 hover:shadow-2xl hover:border-primary transition-all duration-300 ease-in-out hover:border-2"
+                                onClick={() => viewFile(file)} // Click to preview
                             >
-                                <p className="text-sm font-medium text-gray-800 truncate">
+                                <div className="flex items-center gap-2 flex-1">
                                     {file.name}
-                                </p>
-                                <p className="text-xs text-gray-600">
-                                    ទំហំ: {(file.size / 1024 / 1024).toFixed(2)} MB
-                                </p>
-                                <p className="text-xs text-gray-600">
-                                    ប្រភេទ: {file.type}
-                                </p>
-                                <div className="mt-2 flex gap-2">
+                                </div>
+                                <div className="flex flex-row items-center gap-5">
+                                    <div className='mr-2'>{(file.size / 1024 / 1024).toFixed(2)} MB</div>
+                                    <div >{file.duration ? formatDuration(file.duration) : 'កំពុងគណនា...'}</div>
                                     <button
-                                        onClick={() => viewFile(index)}
-                                        className="text-sm text-blue-600 hover:text-blue-800"
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // Prevent triggering viewFile
+                                            removeFile(index);
+                                        }}
+                                        className="text-red-600 hover:text-red-800 text-xl"
                                     >
-                                        មើល
-                                    </button>
-                                    <button
-                                        onClick={() => removeFile(index)}
-                                        className="text-sm text-red-600 hover:text-red-800"
-                                    >
-                                        ដកចេញ
+                                        ❌
                                     </button>
                                 </div>
                             </div>
                         ))}
                     </div>
+
                     <button
                         onClick={clearFiles}
-                        className="mt-4 text-sm text-red-600 hover:text-red-800"
+                        className="mt-4 px-4 py-2 bg-gradient-to-r from-red-600 to-red-800 text-white rounded-full hover:from-red-700 hover:to-red-900 hover:shadow-xl transition-all duration-300 transform hover:scale-105 active:scale-95"
                     >
                         ជម្រះឯកសារទាំងអស់
                     </button>
@@ -141,16 +181,17 @@ function UploadBox({ onFilesSelected }) {
             )}
 
             {/* File Preview Modal */}
-            {isPreviewOpen && selectedFileIndex !== null && (
+            {isPreviewOpen && selectedFile && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-lg max-w-md w-full">
                         <h2 className="text-lg font-bold mb-4">
-                            ការមើលឯកសារជាមុន: {files[selectedFileIndex].name}
+                            ការមើលឯកសារជាមុន: {selectedFile.name}
                         </h2>
+
                         {/* Preview logic for audio files */}
-                        {files[selectedFileIndex].type.startsWith('audio/') ? (
+                        {selectedFile.type.startsWith('audio/') ? (
                             <audio controls className="w-full">
-                                <source src={URL.createObjectURL(files[selectedFileIndex])} type={files[selectedFileIndex].type} />
+                                <source src={selectedFile.fileURL} type={selectedFile.type} />
                                 Your browser does not support the audio element.
                             </audio>
                         ) : (
