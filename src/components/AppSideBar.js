@@ -33,6 +33,7 @@ const items = [
   {
     title: "ផ្ទះ",
     url: "/home",
+    url: "/home",
     icon: Home,
   },
   {
