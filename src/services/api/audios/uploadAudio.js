@@ -1,4 +1,5 @@
 import axiosInstance from "@/services/axiosInstance";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 export const uploadAudio = async (files, segmentDuration = 180) => {
@@ -22,6 +23,11 @@ export const uploadAudio = async (files, segmentDuration = 180) => {
     try {
         toast.loading('Uploading audio...', { duration: Infinity }); 
         const { data } = await axiosInstance.post('/audio/split-and-upload', formData);
+        // if (data?.note?.id) { // Extract ID from the 'note' object
+        //     router.push(`/audio/${data.note.id}`); // Navigate using the correct ID
+        // } else {
+        //     toast.error('Upload successful, but no ID was returned.');
+        // }
         return data;
     } catch (error) {
         console.error('Error uploading file:', error);

@@ -7,14 +7,18 @@ import Button from '@/components/Button';
 import Layout from '@/components/Layout';
 import { uploadAudio } from '@/services/api/audios/uploadAudio';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [isUploading, setIsUploading] = useState(false);
+    const router = useRouter();
 
     const handleNextClick = async () => {
         setIsUploading(true);
-        await uploadAudio(uploadedFiles);
+        const {note} = await uploadAudio(uploadedFiles);
+        // router.push('/notes')
+        router.push(`/notes/${note.id}/transcriptions`);
 
     };
 

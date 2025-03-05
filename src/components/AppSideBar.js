@@ -32,12 +32,12 @@ import AppSideBarFooter from "./AppSideBarFooter";
 const items = [
   {
     title: "ផ្ទះ",
-    url: "#",
+    url: "/home",
     icon: Home,
   },
   {
-    title: "Inbox",
-    url: "#",
+    title: "Notes",
+    url: "/notes",
     icon: Inbox,
   },
   {
