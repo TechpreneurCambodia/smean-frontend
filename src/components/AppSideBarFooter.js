@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Home, Inbox, Search, Settings, User2, ChevronUp } from "lucide-react";
+import { Home, FolderClosed, CirclePlus, Search, Settings, User2, ChevronUp } from "lucide-react";
 
 import {
   Sidebar,
