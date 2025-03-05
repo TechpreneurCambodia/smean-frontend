@@ -1,41 +1,44 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Steps from '@/components/Steps';
 import UploadBox from '@/components/UploadBox';
 import Button from '@/components/Button';
 import Layout from '@/components/Layout';
+import { uploadAudio } from '@/services/api/audios/uploadAudio';
+import toast from 'react-hot-toast';
 
 export default function Page() {
     const [uploadedFiles, setUploadedFiles] = useState([]);
+    const [isUploading, setIsUploading] = useState(false);
 
-    const handleFilesSelected = (files) => {
-        setUploadedFiles(files);
-        console.log('Files selected:', files);
+    const handleNextClick = async () => {
+        setIsUploading(true);
+        await uploadAudio(uploadedFiles);
+
     };
 
-    const handleNextClick = () => {
-        if (uploadedFiles.length === 0) {
-            alert('Please upload at least one file before proceeding.');
+    const handleFilesSelected = (files) => {
+        if (files.length === 0) {
+            toast.error('Please upload at least one file before proceeding.');
             return;
         }
-
-        console.log('Proceeding with files:', uploadedFiles);
-        // Add your logic here for what happens next
+        setUploadedFiles(files);
+        // console.log('Files selected:', files);
     };
 
     return (
         <Layout>
-            <div className="flex flex-col flex-grow">
-                <div className="text-4xl font-bold my-4 sm:mt-10 md:mt-8 mt-10">
-                    បញ្ចូលឯកសារ
+            <div className={`flex flex-col flex-grow `}>
+                <div className="text-4xl font-bold my-4 sm:my-6 md:my-8">
+                    បញ្ចូលប្រតិចារិក/Upload and Transcript
                 </div>
                 <div className="flex flex-col items-center">
-                    <Steps hasFiles={uploadedFiles.length > 0} />
+                    <Steps />
                 </div>
                 <div className="mb-4">
                     <div className="text-2xl font-semibold">
-                        * លក្ខខណ្ឌក្នុងការបញ្ចូលឯកសារ
+                        * បញ្ចូលប្រតិចារិក
                     </div>
                     <div className="text-lg font-medium">
                         ទំហំឯកសារផ្ទុកឡើងអតិបរិមាគឺ 1GB (អូឌីយ៉ូ)
@@ -48,7 +51,7 @@ export default function Page() {
                     <UploadBox onFilesSelected={handleFilesSelected} />
                 </div>
                 <div className="pb-16 flex justify-center">
-                    <Button text="បន្ទាប់" onClick={handleNextClick} />
+                    <Button text="បន្ទាប់" onClick={handleNextClick} disabled={isUploading} />
                 </div>
             </div>
         </Layout>
