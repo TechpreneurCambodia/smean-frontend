@@ -1,5 +1,4 @@
 import axiosInstance from "@/services/axiosInstance";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 export const uploadAudio = async (files, segmentDuration = 180) => {
@@ -28,12 +27,13 @@ export const uploadAudio = async (files, segmentDuration = 180) => {
         // } else {
         //     toast.error('Upload successful, but no ID was returned.');
         // }
+        toast.success('Upload successful.');
         return data;
     } catch (error) {
         console.error('Error uploading file:', error);
         throw error;
     } finally {
         toast.dismiss();
-        toast.success('Upload successful.');
+        
     }
 };
