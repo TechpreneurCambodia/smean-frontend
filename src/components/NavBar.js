@@ -13,7 +13,7 @@ function NavBar({ isSidebarOpen }) {
           alt="Tailwind CSS Navbar component"
           src="/smean_logo.svg"
         />
-        <a className="btn btn-ghost text-xl">ស្មៀន/Smean</a>
+        <a className="hover:cursor-point text-xl">ស្មៀន/Smean</a>
       </div>
       <div className="flex-none gap-2">
         <div className="dropdown dropdown-end">

@@ -10,7 +10,7 @@ function ActionButton() {
     <button className="flex items-center px-6 py-3 bg-white text-primary rounded-lg shadow">
       <Mic className="mr-2" /> ថតសំឡេងភ្លាមៗ
     </button>
-    <button className="flex items-center px-6 py-3 bg-white text-primary rounded-lg shadow" onClick={() => router.push('/uploadAudio')}>
+    <button className="flex items-center px-6 py-3 bg-white text-primary rounded-lg shadow" onClick={() => router.push('/upload')}>
       <Upload className="mr-2" /> បញ្ចូលឯកសារ
     </button>
   </div>

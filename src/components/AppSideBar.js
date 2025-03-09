@@ -48,7 +48,7 @@ const items = [
   },
   {
     title: "បញ្ចូលឯកសារ",
-    url: "/uploadAudio",
+    url: "/upload",
     icon: Upload,
   },
 ];
