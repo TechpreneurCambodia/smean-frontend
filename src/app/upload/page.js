@@ -16,10 +16,17 @@ export default function Page() {
 
     const handleNextClick = async () => {
         setIsUploading(true);
-        const {note} = await uploadAudio(uploadedFiles);
-        // router.push('/notes')
-        router.push(`/notes/${note.id}/transcriptions`);
-
+        await uploadAudio(uploadedFiles).then((res) => {
+            const {note} = res;
+            console.log('Note:', res);
+            setIsUploading(false);
+            router.push(`/notes/${note.id}/transcriptions`);
+            return res;
+        }).catch((err) => {
+            setIsUploading(false);
+            toast.error('An error occurred while uploading the file. Please try again.');
+            console.error(err);
+        });
     };
 
     const handleFilesSelected = (files) => {
