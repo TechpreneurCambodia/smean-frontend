@@ -33,7 +33,6 @@ const items = [
   {
     title: "ផ្ទះ",
     url: "/home",
-    url: "/home",
     icon: Home,
   },
   {
@@ -43,12 +42,12 @@ const items = [
   },
   {
     title: "ថតសំឡេងភ្លាមៗ",
-    url: "/",
+    url: "/recordingpage",
     icon: Mic,
   },
   {
     title: "បញ្ចូលឯកសារ",
-    url: "/uploadAudio",
+    url: "/upload",
     icon: Upload,
   },
 ];
@@ -74,10 +73,11 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <div className="flex flex-row gap-5 items-center mb-4 ml-2">
-            <SquarePen className="w-4 h-4 text-gray-500" /> {/* Smaller and gray */}
-            <Search className="w-4 h-4 text-gray-500" /> {/* Smaller and gray */}
+            <SquarePen className="w-4 h-4 text-gray-500" />
+            <Search className="w-4 h-4 text-gray-500" />
           </div>
           <SidebarGroupLabel>ម៉ឺនុយកម្មវិធី</SidebarGroupLabel>
+          <hr className="border-gray w-full mb-2" />
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
@@ -85,10 +85,10 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <a
                       href={item.url}
-                      className={`flex items-center gap-2 p-2 rounded-lg transition-all duration-300 ${
+                      className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-300 ${
                         activePath === item.url
-                          ? 'bg-primary70 text-primary' // Active state with your primary color (#0D6074)
-                          : 'text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue' // Non-active state with hover
+                          ? 'bg-secondary70 text-primary font-medium  hover:bg-secondary70 hover:text-primary'
+                          : 'font-medium hover:bg-secondary70 hover:text-primary'
                       }`}
                       onClick={(e) => {
                         e.preventDefault();
@@ -104,7 +104,8 @@ export function AppSidebar() {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
-          <SidebarGroupLabel>ប្រវិត្តរបស់អ្នក</SidebarGroupLabel>
+          <SidebarGroupLabel className="mt-5">ប្រវិត្តរបស់អ្នក</SidebarGroupLabel>
+          <hr className="border-gray w-full mb-2" />
           <SidebarGroupContent>
             <SidebarMenu>
               {chatHistory.map((chat) => (
@@ -112,14 +113,14 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <a
                       href={chat.url}
-                      className="flex flex-col p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
+                      className="flex flex-row p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
                       onClick={(e) => {
                         e.preventDefault();
                         window.location.href = chat.url; // Navigate (replace with router if using one)
                       }}
                     >
-                      <span className="text-sm font-medium">{chat.title}</span>
-                      <span className="text-xs text-gray-500">{chat.timestamp}</span>
+                      <span className="text-base font-medium">{chat.title}</span>
+                      {/* <span className="text-xs text-gray-500">{chat.timestamp}</span> */}
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -128,9 +129,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <AppSideBarFooter />
-      </SidebarFooter>
+      {/* reomove siderbar */}
     </Sidebar>
   );
 }

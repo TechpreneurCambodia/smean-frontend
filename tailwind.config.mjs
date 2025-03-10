@@ -34,6 +34,7 @@ export default {
                 black70: 'rgba(0, 0, 0, 0.7)',
                 darkGray: '#4A4A4A',
                 primary70: '#C5D5D9',
+                secondary70: '#769da8',
                 black: '#000000',
                 card: {
                     DEFAULT: 'hsl(var(--card))',

@@ -4,21 +4,21 @@ function NavBar({ isSidebarOpen }) {
   return (
     <div className="navbar bg-white drop-shadow-md">
       <div 
-        className={`flex-1 flex items-center gap-2 ${
+        className={`flex-1 flex items-center gap-5 ${
           isSidebarOpen ? 'pl-64' : 'pl-0'
         } transition-padding duration-300 ease-in-out`}
       >
         <img 
-          className="btn btn-ghost"
+          className="w-14 "
           alt="Tailwind CSS Navbar component"
           src="/smean_logo.svg"
         />
-        <a className="btn btn-ghost text-xl">ស្មៀន/Smean</a>
+        <a className="font-semibold text-xl cursor-pointer" href="/home">ស្មៀន/Smean</a>
       </div>
-      <div className="flex-none gap-2">
-        <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
+      <div className="flex-none gap-2 ">
+        <div className="dropdown dropdown-end ">
+          <div tabIndex={0} role="button" className=" avatar">
+            <div className="w-10 rounded-full border border-black hover:shadow-lg "> 
               <img
                 alt="Tailwind CSS Navbar component"
                 src="/SOMETH.jpg"

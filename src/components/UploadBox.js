@@ -1,3 +1,4 @@
+import { CircleX } from 'lucide-react';
 import React, { useState, useCallback } from 'react';
 
 function UploadBox({ onFilesSelected }) {
@@ -148,7 +149,7 @@ function UploadBox({ onFilesSelected }) {
                         {files.map((file, index) => (
                             <div 
                                 key={index} 
-                                className="flex flex-row justify-between w-full bg-gray-500 rounded-xl p-2 text-black cursor-pointer hover:bg-gray-200 hover:shadow-2xl hover:border-primary transition-all duration-300 ease-in-out hover:border-2"
+                                className="flex flex-row justify-between w-full bg-gray-500 rounded-xl p-2 text-black cursor-pointer hover:bg-gray-200 hover:shadow-2xl transition-all duration-300 ease-in-out hover:outline-offset-2 hover:outline-primary"
                                 onClick={() => viewFile(file)} // Click to preview
                             >
                                 <div className="flex items-center gap-2 flex-1">
@@ -162,9 +163,9 @@ function UploadBox({ onFilesSelected }) {
                                             e.stopPropagation(); // Prevent triggering viewFile
                                             removeFile(index);
                                         }}
-                                        className="text-red-600 hover:text-red-800 text-xl"
+                                        className="text-[#8a8585] hover:text-black text-xl"
                                     >
-                                        ❌
+                                        <CircleX />
                                     </button>
                                 </div>
                             </div>
