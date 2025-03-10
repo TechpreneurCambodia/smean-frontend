@@ -28,6 +28,7 @@ export const uploadAudio = async (files, segmentDuration = 180) => {
         // } else {
         //     toast.error('Upload successful, but no ID was returned.');
         // }
+        console.log(data);
         return data;
     } catch (error) {
         console.error('Error uploading file:', error);
