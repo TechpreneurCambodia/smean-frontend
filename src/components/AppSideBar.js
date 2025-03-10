@@ -38,7 +38,7 @@ const items = [
   },
   {
     title: "សឺមីឯកសារ",
-    url: "/folder",
+    url: "/notes",
     icon: FolderClosed,
   },
   {
