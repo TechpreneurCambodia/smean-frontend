@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Steps from '@/components/Steps';
 import UploadBox from '@/components/UploadBox';
 import Button from '@/components/Button';
@@ -41,15 +41,15 @@ export default function Page() {
     return (
         <Layout>
             <div className={`flex flex-col flex-grow `}>
-                <div className="text-4xl font-bold my-4 sm:my-6 md:my-8">
-                    បញ្ចូលប្រតិចារិក/Upload and Transcript
+                <div className="text-primary text-6xl font-semibold my-4 sm:my-6 md:my-8">
+                    បញ្ចូលឯកសារ
                 </div>
                 <div className="flex flex-col items-center">
-                    <Steps />
+                    <Steps hasFiles={uploadedFiles.length > 0} /> {/* Pass hasFiles prop */}
                 </div>
                 <div className="mb-4">
-                    <div className="text-2xl font-semibold">
-                        * បញ្ចូលប្រតិចារិក
+                    <div className="text-2xl font-semibold text-primary">
+                        * លក្ខខណ្ឌបញ្ចូលឯកសារ
                     </div>
                     <div className="text-lg font-medium">
                         ទំហំឯកសារផ្ទុកឡើងអតិបរិមាគឺ 1GB (អូឌីយ៉ូ)
