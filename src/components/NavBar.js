@@ -9,11 +9,10 @@ function NavBar({ isSidebarOpen }) {
         } transition-padding duration-300 ease-in-out`}
       >
         <img 
-          className="btn btn-ghost"
           alt="Tailwind CSS Navbar component"
           src="/smean_logo.svg"
         />
-        <a className="btn btn-ghost text-xl">ស្មៀន/Smean</a>
+        <a className="text-xl">ស្មៀន/Smean</a>
       </div>
       <div className="flex-none gap-2">
         <div className="dropdown dropdown-end">

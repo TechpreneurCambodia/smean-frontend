@@ -38,7 +38,7 @@ const items = [
   },
   {
     title: "សឺមីឯកសារ",
-    url: "/folder",
+    url: "/notes",
     icon: FolderClosed,
   },
   {
@@ -48,7 +48,7 @@ const items = [
   },
   {
     title: "បញ្ចូលឯកសារ",
-    url: "/uploadAudio",
+    url: "/upload",
     icon: Upload,
   },
 ];
