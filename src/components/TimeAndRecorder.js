@@ -18,7 +18,7 @@ const TimeAndRecorder = ({ addRecording }) => {
     const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
     const seconds = String(totalSeconds % 60).padStart(2, "0");
 
-    return { minutes, seconds };
+    return `${minutes}:${seconds}`;
   };
 
   // Start recording
@@ -38,6 +38,7 @@ const TimeAndRecorder = ({ addRecording }) => {
       const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
       const audioFile = new File([audioBlob], "recording.wav", { type: "audio/wav" });
       const audioUrl = URL.createObjectURL(audioBlob);
+      setAudioUrl(audioUrl);
       clearInterval(timerRef.current);
       console.log(audioFile);
 
@@ -70,49 +71,30 @@ const TimeAndRecorder = ({ addRecording }) => {
     }
     setRecording(false);
     clearInterval(timerRef.current);
-    setElapsedTime(0); // Reset timer to zero
-  };
-
-  const uploadAudioFile = async (audioFile) => {
-    try {
-      const data  = await uploadAudio([audioFile]);
-      console.log('Upload response:', data);
-      toast.success('Upload successful.');
-      return data;
-    } catch (error) {
-      console.error('Error uploading file:', error);
-      toast.error("Failed to upload audio. Please try again.");
-      throw error;
-    }
   };
 
   const { minutes, seconds } = formatTime(elapsedTime);
 
   return (
-    <div className="p-4 bg-gray-100 rounded-lg shadow-lg max-w-md mx-auto text-center">
-      <h2 className="font-semibold flex items-center justify-center gap-2">
-        ឧបករណ៍ថតសំឡេង
-      </h2>
-
-      {/* Timer */}
-      <div className="text-2xl font-mono mt-2 hover:cursor-pointer hover:text-green-500 transition duration-200">
-        <span className="text-gray-500">{minutes}:</span>
-        <span className="text-green-500">{seconds}</span>
+    <div className="flex items-center gap-4 p-3 bg-blue-100 rounded-full w-fit shadow-md">
+      {/* Animated Recording Indicator */}
+      <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+        <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
       </div>
 
-      {/* Record Button */}
-      <div className="flex items-center justify-center gap-4 mt-4">
-        <button
-          className={`btn ${recording ? "btn-red" : "btn-green"} p-3 rounded-full`}
-          onClick={recording ? handleStopRecording : handleStartRecording}
-        >
-          {recording ? (
-            <StopIcon className="w-8 h-8 text-white" />
-          ) : (
-            <MicrophoneIcon className="w-8 h-8 text-white" />
-          )}
-        </button>
-      </div>
+      {/* Placeholder for waveform animation */}
+      {/* <div className="flex-1 h-4 bg-blue-300 rounded-md w-24"></div> */}
+
+      {/* Timer Display */}
+      <div className="text-primary font-semibold text-xl">{formatTime(elapsedTime)}</div>
+
+      {/* Record/Stop Button */}
+      <button
+        onClick={recording ? handleStopRecording : handleStartRecording}
+        className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400"
+      >
+        {recording ? <Square className="text-red-500 w-10 h-10" /> : <Mic className="text-gray-500 w-10 h-10" />}
+      </button>
     </div>
   );
 };
