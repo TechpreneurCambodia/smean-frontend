@@ -14,9 +14,7 @@ export const uploadAudio = async (files, segmentDuration = 180) => {
     }
 
     const formData = new FormData();
-    files.forEach((file) => {
-        formData.append('file', file);
-    });
+    formData.append('file', files[0]);
     formData.append('segmentDuration', segmentDuration);
 
     try {

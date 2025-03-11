@@ -1,9 +1,10 @@
-// "use client";
-"use client"
+"use client";
 import { useState, useRef } from "react";
 import { MicrophoneIcon, StopIcon } from "@heroicons/react/solid";
+import toast from "react-hot-toast";
+import { uploadAudio } from "@/services/api/audios/uploadAudio";
 
-const TimeAndRecorder = ({ setAudioUrl }) => {
+const TimeAndRecorder = ({ addRecording }) => {
   const [recording, setRecording] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0); // Time in milliseconds
   const mediaRecorderRef = useRef(null);
@@ -22,6 +23,10 @@ const TimeAndRecorder = ({ setAudioUrl }) => {
 
   // Start recording
   const handleStartRecording = async () => {
+    // Reset state for new recording
+    audioChunksRef.current = [];
+    setElapsedTime(0);
+
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     const mediaRecorder = new MediaRecorder(stream);
 
@@ -29,11 +34,21 @@ const TimeAndRecorder = ({ setAudioUrl }) => {
       audioChunksRef.current.push(event.data);
     };
 
-    mediaRecorder.onstop = () => {
+    mediaRecorder.onstop = async () => {
       const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
+      const audioFile = new File([audioBlob], "recording.wav", { type: "audio/wav" });
       const audioUrl = URL.createObjectURL(audioBlob);
-      setAudioUrl(audioUrl); // Send to parent (RecordPage)
       clearInterval(timerRef.current);
+      console.log(audioFile);
+
+      try {
+        const result = await uploadAudioFile(audioFile);
+        if (typeof addRecording === 'function') {
+          addRecording({ audioUrl, transcript: result.transcriptions ?? '' }); // Send recording to parent (RecordPage)
+        }
+      } catch (error) {
+        console.error("Error uploading audio:", error);
+      }
     };
 
     mediaRecorder.start();
@@ -55,6 +70,20 @@ const TimeAndRecorder = ({ setAudioUrl }) => {
     }
     setRecording(false);
     clearInterval(timerRef.current);
+    setElapsedTime(0); // Reset timer to zero
+  };
+
+  const uploadAudioFile = async (audioFile) => {
+    try {
+      const data  = await uploadAudio([audioFile]);
+      console.log('Upload response:', data);
+      toast.success('Upload successful.');
+      return data;
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      toast.error("Failed to upload audio. Please try again.");
+      throw error;
+    }
   };
 
   const { minutes, seconds } = formatTime(elapsedTime);
@@ -62,7 +91,7 @@ const TimeAndRecorder = ({ setAudioUrl }) => {
   return (
     <div className="p-4 bg-gray-100 rounded-lg shadow-lg max-w-md mx-auto text-center">
       <h2 className="font-semibold flex items-center justify-center gap-2">
-      ឧបករណ៍ថតសំឡេង
+        ឧបករណ៍ថតសំឡេង
       </h2>
 
       {/* Timer */}
