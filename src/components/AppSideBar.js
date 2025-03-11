@@ -6,6 +6,7 @@ import {
   Search,
   Mic,
   Upload,
+  Notebook, 
 } from "lucide-react";
 
 import {
@@ -37,8 +38,13 @@ const items = [
   },
   {
     title: "សឺមីឯកសារ",
-    url: "/notes",
+    url: "/folder",
     icon: FolderClosed,
+  },
+  {
+    title: "កំណត់ត្រា",
+    url: "/notes",
+    icon: Notebook,
   },
   {
     title: "ថតសំឡេងភ្លាមៗ",
@@ -87,8 +93,8 @@ export function AppSidebar() {
                       href={item.url}
                       className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-300 ${
                         activePath === item.url
-                          ? 'bg-secondary70 text-primary font-medium  hover:bg-secondary70 hover:text-primary'
-                          : 'font-medium hover:bg-secondary70 hover:text-primary'
+                          ? 'bg-cyan text-primary font-medium  hover:bg-cyan hover:text-primary'
+                          : 'font-medium hover:bg-cyan hover:text-primary'
                       }`}
                       onClick={(e) => {
                         e.preventDefault();

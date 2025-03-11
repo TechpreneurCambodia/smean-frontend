@@ -35,6 +35,7 @@ export default {
                 darkGray: '#4A4A4A',
                 primary70: '#C5D5D9',
                 secondary70: '#769da8',
+                cyan: '#c8d4d8',
                 black: '#000000',
                 card: {
                     DEFAULT: 'hsl(var(--card))',
