@@ -4,7 +4,7 @@ const Logo = () => {
     <div className="flex items-center space-x-2">
       {/* Logo Image */}
       <img
-        src={"https://marketplace.canva.com/EAFaFUz4aKo/2/0/1600w/canva-yellow-abstract-cooking-fire-free-logo-JmYWTjUsE-Q.jpg"} // Replace with your logo path
+        src={"/smean_logo.svg"} // Replace with your logo path
         alt="Logo"
         className="h-24 w-24 " // Adjust size as needed
       />

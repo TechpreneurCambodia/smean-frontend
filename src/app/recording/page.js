@@ -31,7 +31,6 @@ const RecordPage = () => {
           
           {/* Waveform Section (always visible, updates when audio exists) */}
           <div className="flex items-center ml-60 mt-8 w-full max-w-md">
-            
             <PlayAudio audioSrc={audioSrc} />
           </div>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import SummaryNoDetail from '../../components/SummaryNoDetail';
-import TimeAndRecorder from '../../components/TimeAndRecorder';
+import TimeAndRecorder from '@/components/TimeAndRecorder';
 import Logo from '../../components/Logo';
 import MinuteOption from '../../components/MinuteOption';
 import DateTime from '../../components/DateTime';

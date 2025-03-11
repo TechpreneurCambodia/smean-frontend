@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import WaveSurfer from "wavesurfer.js";
+import { Play, Pause, RefreshCw } from "lucide-react";
 
 const PlayAudio = ({ audioSrc }) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -11,19 +12,20 @@ const PlayAudio = ({ audioSrc }) => {
   useEffect(() => {
     if (waveformRef.current && audioSrc) {
       if (wavesurfer.current) {
-        wavesurfer.current.destroy(); // Reset WaveSurfer instance if exists
+        wavesurfer.current.destroy();
       }
 
       wavesurfer.current = WaveSurfer.create({
         container: waveformRef.current,
-        waveColor: "#ffffff",
-        progressColor: "#ff0000",
-        barWidth: 2,
-        barHeight: 1,
+        waveColor: "#CBD5E1", // Light grayish blue
+        progressColor: "#3B82F6", // Blue progress
         cursorWidth: 2,
-        cursorColor: "#ff0000",
+        cursorColor: "#3B82F6",
+        barWidth: 2,
+        barGap: 2,
+        barRadius: 2,
+        height: 50,
         responsive: true,
-        height: 80,
       });
 
       wavesurfer.current.load(audioSrc);
@@ -42,29 +44,31 @@ const PlayAudio = ({ audioSrc }) => {
   };
 
   return (
-    <div className="flex flex-col items-center p-6 bg-white shadow-lg rounded-xl max-w-md mx-auto">
-      {/* Time Display */}
-      <div className="text-4xl font-semibold text-primary">
-        <span className="text-darkGray ">0</span>5:06.10
-      </div>
-
-      {/* Waveform Display */}
-      <div className="w-full max-w-md bg-black my-4 rounded-lg overflow-hidden">
+    <div className="flex flex-col items-center">
+      {/* Waveform Display (Above the Button) */}
+      <div className="w-full max-w-md mb-4 rounded-lg overflow-hidden">
         <div ref={waveformRef}></div>
       </div>
 
-      {/* Play / Pause Button */}
-      <div className="flex items-center gap-4">
+      {/* Countdown + Play Button */}
+      <div className="flex items-center gap-12">
+        <div className="flex flex-col items-center text-primary text-sm">
+          <RefreshCw size={24} strokeWidth={1.5} />
+          <span className="text-sm font-semibold">3</span>
+        </div>
+
+        {/* Play Button */}
         <button
-          className="btn btn-circle bg-blue-100 hover:bg-blue-200 shadow-md p-4"
           onClick={togglePlay}
+          className="flex items-center justify-center w-24 h-12 bg-primary text-white rounded-full shadow-lg hover:bg-blue-600 transition"
         >
-          {isPlaying ? (
-            <span className="text-3xl text-blue-600">⏸️</span>
-          ) : (
-            <span className="text-3xl text-blue-600">▶️</span>
-          )}
+          {isPlaying ? <Pause size={28} /> : <Play size={28} />}
         </button>
+
+        <div className="flex flex-col items-center text-primary text-sm">
+          <RefreshCw size={24} strokeWidth={1.5} />
+          <span className="text-sm font-semibold">3</span>
+        </div>
       </div>
     </div>
   );

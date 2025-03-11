@@ -32,7 +32,7 @@ function SummaryTranscript() {
           <div className="mt-4 text-right">
             <button
               onClick={() => router.push('/allsummary')}
-              className="text-blue-500 hover:underline text-lg"
+              className="text-primary hover:underline text-lg"
             >
               មើលបន្ថែម →
             </button>

@@ -1,8 +1,9 @@
 "use client";
 import { useState, useRef } from "react";
-import { MicrophoneIcon, StopIcon } from "@heroicons/react/solid";
+import { StopIcon } from "@heroicons/react/solid";
 import toast from "react-hot-toast";
 import { uploadAudio } from "@/services/api/audios/uploadAudio";
+import { Mic, Square } from "lucide-react";
 
 const TimeAndRecorder = ({ addRecording }) => {
   const [recording, setRecording] = useState(false);
@@ -18,7 +19,7 @@ const TimeAndRecorder = ({ addRecording }) => {
     const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
     const seconds = String(totalSeconds % 60).padStart(2, "0");
 
-    return { minutes, seconds };
+    return `${minutes}:${seconds}`;
   };
 
   // Start recording
@@ -100,19 +101,19 @@ const TimeAndRecorder = ({ addRecording }) => {
         <span className="text-green-500">{seconds}</span>
       </div>
 
-      {/* Record Button */}
-      <div className="flex items-center justify-center gap-4 mt-4">
-        <button
-          className={`btn ${recording ? "btn-red" : "btn-green"} p-3 rounded-full`}
-          onClick={recording ? handleStopRecording : handleStartRecording}
-        >
-          {recording ? (
-            <StopIcon className="w-8 h-8 text-white" />
-          ) : (
-            <MicrophoneIcon className="w-8 h-8 text-white" />
-          )}
-        </button>
-      </div>
+      {/* Placeholder for waveform animation */}
+      {/* <div className="flex-1 h-4 bg-blue-300 rounded-md w-24"></div> */}
+
+      {/* Timer Display */}
+      <div className="text-primary font-semibold text-xl">{formatTime(elapsedTime)}</div>
+
+      {/* Record/Stop Button */}
+      <button
+        onClick={recording ? handleStopRecording : handleStartRecording}
+        className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400"
+      >
+        {recording ? <Square className="text-red-500 w-10 h-10" /> : <Mic className="text-gray-500 w-10 h-10" />}
+      </button>
     </div>
   );
 };
