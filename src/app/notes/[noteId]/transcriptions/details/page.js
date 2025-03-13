@@ -79,7 +79,12 @@ const Page = () => {
                         <TranscriptCard
                             key={transcript.id}
                             heading={`${convertToTimestamp(transcript.startAt)}-${convertToTimestamp(transcript.endAt)}`}
-                            description={`${transcript.summary}  ${transcript.content}`}
+                            description={
+                                <>
+                                    <strong>Summary:</strong> {transcript.summary} <br />
+                                    <strong>Full Transcription:</strong> <span style={{ whiteSpace: 'pre-line' }}>{transcript.content}</span>
+                                </>
+                            }
                             href="#"
                         />
                     ))}

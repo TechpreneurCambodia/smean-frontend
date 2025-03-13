@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import { MicrophoneIcon, StopIcon } from "@heroicons/react/solid";
 import toast from "react-hot-toast";
 import { uploadAudio } from "@/services/api/audios/uploadAudio";
+import { Mic, Square } from "lucide-react";
 
 const TimeAndRecorder = ({ addRecording }) => {
   const [recording, setRecording] = useState(false);
@@ -38,7 +39,9 @@ const TimeAndRecorder = ({ addRecording }) => {
       const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
       const audioFile = new File([audioBlob], "recording.wav", { type: "audio/wav" });
       const audioUrl = URL.createObjectURL(audioBlob);
+    
       setAudioUrl(audioUrl);
+      
       clearInterval(timerRef.current);
       console.log(audioFile);
 
