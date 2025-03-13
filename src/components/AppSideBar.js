@@ -6,7 +6,6 @@ import {
   Search,
   Mic,
   Upload,
-  Notebook,
   Notebook, 
 } from "lucide-react";
 
