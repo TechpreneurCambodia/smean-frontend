@@ -33,6 +33,7 @@ function UploadBox({ onFilesSelected }) {
     
                 audio.onloadedmetadata = () => {
                     resolve({
+                        file: file,
                         name: file.name,
                         size: file.size,
                         type: file.type,
@@ -44,6 +45,7 @@ function UploadBox({ onFilesSelected }) {
                 // Handle cases where metadata might not load
                 audio.onerror = () => {
                     resolve({
+                        file: file,
                         name: file.name,
                         size: file.size,
                         type: file.type,

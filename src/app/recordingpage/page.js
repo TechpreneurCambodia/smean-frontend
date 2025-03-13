@@ -1,11 +1,18 @@
-import React from 'react';
+"use client";
+import { useState } from 'react';
 import SummaryNoDetail from '../../components/SummaryNoDetail';
 import TimeAndRecorder from '../../components/TimeAndRecorder';
 import MinuteOption from '../../components/MinuteOption';
 import DateTime from '../../components/DateTime';
 import Layout from '../../components/Layout';
 
-function page() {
+function Page() {
+    const [recordings, setRecordings] = useState([]);
+
+    const addRecording = (recording) => {
+        setRecordings((prevRecordings) => [...prevRecordings, recording]);
+    };
+
     return (
         <Layout>
             <div className="m-4">
@@ -19,10 +26,18 @@ function page() {
                     </div>
                 </div>
                 <SummaryNoDetail />
-                <TimeAndRecorder />
+                <TimeAndRecorder addRecording={addRecording} />
+                {recordings.map((recording, index) => (
+                    <div key={index}>
+                        <h2>Recorded Audio {index + 1}:</h2>
+                        <audio controls src={recording.audioUrl}></audio>
+                        <h2>Transcript:</h2>
+                        <pre>{JSON.stringify(recording.transcript, null, 2)}</pre>
+                    </div>
+                ))}
             </div>
         </Layout>
     );
 }
 
-export default page;
+export default Page;

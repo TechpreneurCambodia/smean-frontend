@@ -6,6 +6,7 @@ import {
   Search,
   Mic,
   Upload,
+  Notebook,
   Notebook, 
 } from "lucide-react";
 
@@ -28,6 +29,9 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import AppSideBarFooter from "./AppSideBarFooter";
+import toast from 'react-hot-toast';
+import { getRecentNotes } from '@/services/api/notes';
+import Layout from './Layout';
 
 // Menu items.
 const items = [
@@ -58,19 +62,22 @@ const items = [
   },
 ];
 
-// Sample chat history items (you can customize these URLs and titles).
-const chatHistory = [
-  { title: "លិខិតអេឡិចត្រូនិច", url: "/chat/1", timestamp: "2025-03-03 10:30" },
-  { title: "ការបញ្ចូលឯកសារ", url: "/chat/2", timestamp: "2025-03-02 15:15" },
-  { title: "សំណួរពី AMK", url: "/chat/3", timestamp: "2025-03-01 09:00" },
-];
-
 export function AppSidebar() {
+  const [notes, setNotes] = useState(null);
   // State to track the active page, initialized safely on the client side
   const [activePath, setActivePath] = useState("/");
-
+const fetchNotes = async () => {
+      try {
+        const data = await getRecentNotes(10, 'updatedAt', 'DESC');
+        setNotes(data.notes);
+      } catch (error) {
+        console.error('Error fetching notes:', error);
+        toast.error('Error fetching notes: ', error);
+      }
+    };
   // Set the active path on the client side when the component mounts
   useEffect(() => {
+    fetchNotes();
     setActivePath(window.location.pathname || "/");
   }, []);
 
@@ -93,8 +100,8 @@ export function AppSidebar() {
                       href={item.url}
                       className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-300 ${
                         activePath === item.url
-                          ? 'bg-cyan text-primary font-medium  hover:bg-cyan hover:text-primary'
-                          : 'font-medium hover:bg-cyan hover:text-primary'
+                          ? 'bg-secondary70 text-primary font-medium  hover:bg-secondary70 hover:text-primary'
+                          : 'font-medium hover:bg-secondary70 hover:text-primary'
                       }`}
                       onClick={(e) => {
                         e.preventDefault();
@@ -114,19 +121,21 @@ export function AppSidebar() {
           <hr className="border-gray w-full mb-2" />
           <SidebarGroupContent>
             <SidebarMenu>
-              {chatHistory.map((chat) => (
-                <SidebarMenuItem key={chat.title}>
+              {notes && notes.map((item) => (
+                <SidebarMenuItem key={item.id}>
                   <SidebarMenuButton asChild>
                     <a
-                      href={chat.url}
-                      className="flex flex-row p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
+                      href={`/notes/${item.id}/transcriptions`}
+                      className="flex flex-row justify-between p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
                       onClick={(e) => {
                         e.preventDefault();
-                        window.location.href = chat.url; // Navigate (replace with router if using one)
+                        window.location.href = `/notes/${item.id}/transcriptions`; // Navigate (replace with router if using one)
                       }}
                     >
-                      <span className="text-base font-medium">{chat.title}</span>
-                      {/* <span className="text-xs text-gray-500">{chat.timestamp}</span> */}
+                      <span className="text-base font-medium">{item.title}</span>
+                      <span className="text-xs text-gray-500">
+                        {`${new Date(item.updatedAt).toLocaleDateString()} ${new Date(item.updatedAt).toLocaleTimeString()}`}
+                      </span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
