@@ -7,6 +7,7 @@ import {
   Mic,
   Upload,
   Notebook,
+  Notebook, 
 } from "lucide-react";
 
 import {
@@ -39,11 +40,16 @@ const items = [
     url: "/home",
     icon: Home,
   },
-  // {
-  //   title: "សឺមីឯកសារ",
-  //   url: "/notes",
-  //   icon: FolderClosed,
-  // },
+  {
+    title: "សឺមីឯកសារ",
+    url: "/folder",
+    icon: FolderClosed,
+  },
+  {
+    title: "កំណត់ត្រា",
+    url: "/notes",
+    icon: Notebook,
+  },
   {
     title: "ថតសំឡេងភ្លាមៗ",
     url: "/recordingpage",
@@ -92,10 +98,11 @@ const fetchNotes = async () => {
                   <SidebarMenuButton asChild>
                     <a
                       href={item.url}
-                      className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-300 ${activePath === item.url
+                      className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-300 ${
+                        activePath === item.url
                           ? 'bg-secondary70 text-primary font-medium  hover:bg-secondary70 hover:text-primary'
                           : 'font-medium hover:bg-secondary70 hover:text-primary'
-                        }`}
+                      }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setActivePath(item.url);

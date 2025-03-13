@@ -1,6 +1,7 @@
 "use client"; // ✅ Fix for Next.js
 
 import { useState, useEffect } from "react";
+import { Calendar1 } from "lucide-react"; // Alternative import
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -29,7 +30,7 @@ const DateTime = () => {
 
   return (
     <div className="flex items-center space-x-2 text-gray-700">
-      <FontAwesomeIcon icon={faCalendarAlt} className="w-4 h-4 text-primary" />
+      <Calendar1 className="w-4 h-4" />
       <span className="text-sm font-medium">{dateTime}</span>
     </div>
   );
