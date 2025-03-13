@@ -37,8 +37,8 @@ const Page = () => {
             <div className="flex flex-col md:flex-row justify-center items-start w-full h-full gap-10 mt-10">
                 <div className="flex flex-col w-full max-w-2xl gap-20">
                     <div className="flex flex-col gap-5">
-                        <h1 className="text-4xl font-bold">
-                            ប្រតិចារិក/Transcript
+                        <h1 className="text-5xl text-primary font-bold">
+                            កំណត់ត្រាសង្ខេបរបស់អ្នក
                         </h1>
                         <p>{note.title}</p>
                     </div>
@@ -50,7 +50,7 @@ const Page = () => {
                 <div className="flex flex-row w-full max-w-2xl gap-5">
                     <div className="w-1 h-screen bg-gray"></div>
                     <div>
-                        <h1 className="text-4xl font-bold">ប្រតិចារិកសង្ខេប</h1>
+                        <h1 className="text-4xl font-bold">សង្ខេបសម្លេងជាអក្សរ</h1>
                         <div className="flex flex-col gap-4">
                             {transcripts && transcripts.map((transcript) => (
                                 <TranscriptCard
