@@ -1,7 +1,6 @@
 import React from 'react';
 import SummaryNoDetail from '../../components/SummaryNoDetail';
 import TimeAndRecorder from '../../components/TimeAndRecorder';
-import Logo from '../../components/Logo';
 import MinuteOption from '../../components/MinuteOption';
 import DateTime from '../../components/DateTime';
 import Layout from '../../components/Layout';
@@ -10,7 +9,6 @@ function page() {
     return (
         <Layout>
             <div className="m-4">
-                <Logo />
                 <DateTime />
                 <div className="flex justify-start">
                     <h2 className="font-bold text-[32px] flex items-center gap-2 ">
