@@ -7,7 +7,6 @@ import {
   Mic,
   Upload,
   Notebook,
-  Notebook, 
 } from "lucide-react";
 
 import {
@@ -100,13 +99,13 @@ const fetchNotes = async () => {
                       href={item.url}
                       className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-300 ${
                         activePath === item.url
-                          ? 'bg-secondary70 text-primary font-medium  hover:bg-secondary70 hover:text-primary'
-                          : 'font-medium hover:bg-secondary70 hover:text-primary'
+                          ? 'bg-primary70 text-primary font-medium  hover:bg-primary70'
+                          : 'font-medium hover:bg-primary70'
                       }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setActivePath(item.url);
-                        window.location.href = item.url; // Navigate (replace with router if using one)
+                        window.location.href = item.url;
                       }}
                     >
                       <item.icon className="w-5 h-5" />
