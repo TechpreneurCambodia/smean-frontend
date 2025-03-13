@@ -18,15 +18,14 @@ function Page() {
             <div className="m-4">
                 <DateTime />
                 <div className="flex justify-start">
-                    <h2 className="font-bold text-[32px] flex items-center gap-2 ">
-                        កំណត់ពេលវេលាថត៖
+                    <h2 className="font-bold text-5xl flex items-center p-5 text-primary">
+                        ថតសំឡេងរបស់អ្នក
                     </h2>
-                    <div className="ml-4">
-                        <MinuteOption />
-                    </div>
                 </div>
                 <SummaryNoDetail />
-                <TimeAndRecorder addRecording={addRecording} />
+                <div className='ml-24'>
+                    <TimeAndRecorder addRecording={addRecording} />
+                </div>
                 {recordings.map((recording, index) => (
                     <div key={index}>
                         <h2>Recorded Audio {index + 1}:</h2>
