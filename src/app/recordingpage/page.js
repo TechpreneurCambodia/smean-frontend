@@ -17,10 +17,15 @@ function Page() {
         <Layout>
             <div className="m-4">
                 <DateTime />
-                <div className="flex justify-start">
-                    <h2 className="font-bold text-5xl flex items-center p-5 text-primary">
-                        ថតសំឡេងរបស់អ្នក
-                    </h2>
+                <div className='flex flex-start'>
+                    <div className="flex justify-start">
+                        <h2 className="font-bold text-5xl flex items-center p-5 text-primary">
+                            ថតសំឡេងរបស់អ្នក
+                        </h2>
+                    </div>
+                    <div className='mt-5'>
+                        <MinuteOption/>
+                    </div>
                 </div>
                 <SummaryNoDetail />
                 <div className='ml-24'>
