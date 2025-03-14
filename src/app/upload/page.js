@@ -16,8 +16,10 @@ export default function Page() {
 
     const handleNextClick = async () => {
         setIsUploading(true);
-        await uploadAudio(uploadedFiles).then((res) => {
-            const {note} = res;
+        const originalFiles = uploadedFiles.map(file => file.file); 
+        console.log('Original files:', originalFiles);
+        await uploadAudio(originalFiles).then((res) => {
+            const { note } = res;
             console.log('Note:', res);
             setIsUploading(false);
             router.push(`/notes/${note.id}/transcriptions`);
@@ -34,6 +36,7 @@ export default function Page() {
             toast.error('Please upload at least one file before proceeding.');
             return;
         }
+        console.log('Files selected:', files);
         setUploadedFiles(files);
         // console.log('Files selected:', files);
     };
