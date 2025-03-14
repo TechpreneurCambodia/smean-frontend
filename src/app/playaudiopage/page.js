@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import TimeAndRecorder from "../../components/TimeAndRecorder";
 import PlayAudio from "../../components/PlayAudio";
 import Logo from "../../components/Logo";
 import DateTime from "../../components/DateTime";
 import MinuteOption from "../../components/MinuteOption";
 import WholeSummary from "../../components/wholesummary";
 import SummaryTranscript from "../../components/SummaryTranscript";
-import TimeAndRecorder from "@/components/TimeAndRecorder";
+
 const RecordPage = () => {
   const [audioSrc, setAudioSrc] = useState(null);
 
