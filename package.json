@@ -26,6 +26,7 @@
     "dropzone": "^6.0.0-beta.2",
     "heroicons": "^2.2.0",
     "lucide-react": "^0.475.0",
+    "mic": "^2.1.2",
     "next": "^15.2.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -35,6 +36,8 @@
     "smean-frontend": "file:",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
+    "wavesurfer": "^1.3.4",
+    "wavesurfer.js": "^7.9.1",
     "wavesurfer.js": "^7.9.1"
   },
   "devDependencies": {

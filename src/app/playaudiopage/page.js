@@ -18,7 +18,7 @@ const RecordPage = () => {
       <DateTime />
       <div className='flex justify-center items-center'>
         <h2 className="font-bold text-[32px] flex items-center gap-2 ">
-          កំណត់ពេលវេលាថត៖
+          ថតសំឡេងរបស់អ្នក
         </h2>
         <div className='ml-4'>
           <MinuteOption />

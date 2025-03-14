@@ -1,6 +1,7 @@
 "use client"; // ✅ Fix for Next.js
 
 import { useState, useEffect } from "react";
+import { Calendar1 } from "lucide-react"; // Alternative import
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 

@@ -39,11 +39,16 @@ const items = [
     url: "/home",
     icon: Home,
   },
-  // {
-  //   title: "សឺមីឯកសារ",
-  //   url: "/notes",
-  //   icon: FolderClosed,
-  // },
+  {
+    title: "សឺមីឯកសារ",
+    url: "/folder",
+    icon: FolderClosed,
+  },
+  {
+    title: "កំណត់ត្រា",
+    url: "/notes",
+    icon: Notebook,
+  },
   {
     title: "ថតសំឡេងភ្លាមៗ",
     url: "/recordingpage",
@@ -92,14 +97,15 @@ const fetchNotes = async () => {
                   <SidebarMenuButton asChild>
                     <a
                       href={item.url}
-                      className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-300 ${activePath === item.url
-                          ? 'bg-secondary70 text-primary font-medium  hover:bg-secondary70 hover:text-primary'
-                          : 'font-medium hover:bg-secondary70 hover:text-primary'
-                        }`}
+                      className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-300 ${
+                        activePath === item.url
+                          ? 'bg-primary70 text-primary font-medium  hover:bg-primary70'
+                          : 'font-medium hover:bg-primary70'
+                      }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setActivePath(item.url);
-                        window.location.href = item.url; // Navigate (replace with router if using one)
+                        window.location.href = item.url;
                       }}
                     >
                       <item.icon className="w-5 h-5" />

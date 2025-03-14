@@ -24,7 +24,7 @@ export default function Page() {
     return (
         <Layout>
             <div className="container mx-auto px-4 py-8">
-                <h1 className="text-4xl font-bold mb-8">ប្រតិចារិកសង្ខេប</h1>
+                <h1 className="text-5xl text-primary font-bold mb-8">កំណត់ត្រាសង្ខេបរបស់អ្នក</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {notes && notes.map((note) => {
                         const date = new Date(note.createdAt);
