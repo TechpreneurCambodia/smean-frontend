@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
-import TimeAndRecorder from "../components/TimeAndRecorder";
-
+import TimeAndRecorder from "@/components/TimeAndRecorder";
 const RecordPage = () => {
   const [recordings, setRecordings] = useState([]);
 

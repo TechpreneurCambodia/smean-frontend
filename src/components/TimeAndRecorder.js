@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
-import { MicrophoneIcon, StopIcon } from "@heroicons/react/solid";
+import { StopIcon } from "@heroicons/react/solid";
 import toast from "react-hot-toast";
 import { uploadAudio } from "@/services/api/audios/uploadAudio";
 import { Mic, Square } from "lucide-react";

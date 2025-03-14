@@ -30,7 +30,7 @@ const DateTime = () => {
 
   return (
     <div className="flex items-center space-x-2 text-gray-700">
-      <Calendar1 className="w-4 h-4" />
+      <FontAwesomeIcon icon={faCalendarAlt} className="w-4 h-4 text-primary" />
       <span className="text-sm font-medium">{dateTime}</span>
     </div>
   );

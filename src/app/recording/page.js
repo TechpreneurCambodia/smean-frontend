@@ -18,7 +18,7 @@ const RecordPage = () => {
       <DateTime />
       <div className='flex justify-center items-center'>
         <h2 className="font-bold text-[32px] flex items-center gap-2 ">
-          ថតសំឡេងរបស់អ្នក
+          កំណត់ពេលវេលាថត៖
         </h2>
         <div className='ml-4'>
           <MinuteOption />
@@ -31,7 +31,6 @@ const RecordPage = () => {
           
           {/* Waveform Section (always visible, updates when audio exists) */}
           <div className="flex items-center ml-60 mt-8 w-full max-w-md">
-            
             <PlayAudio audioSrc={audioSrc} />
           </div>
         </div>
