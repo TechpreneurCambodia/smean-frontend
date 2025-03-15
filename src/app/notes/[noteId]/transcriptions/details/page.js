@@ -55,7 +55,8 @@ const Page = () => {
           <Rename />
         </h1>
        
-        <div className="grid grid-cols-1 md:grid-cols-2  gap-6">
+        <div className="flex flex-col gap-6">
+
           {transcripts &&
             transcripts.map((transcript) => (
               <TranscriptCard

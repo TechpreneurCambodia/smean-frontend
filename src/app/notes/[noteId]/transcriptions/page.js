@@ -53,9 +53,9 @@ const Page = () => {
                 <div className="hidden md:block bg-gray-300 w-1 h-auto"></div>
                 <div className="flex flex-row w-full max-w-2xl gap-5">
                     <div className="w-1 h-screen bg-gray"></div>
-                    <div>
+                    <div className="w-full">
                         <h1 className="text-4xl font-bold">សង្ខេបសម្លេងជាអក្សរ</h1>
-                        <div className="flex flex-col gap-4">
+                        <div className="w-full flex flex-col gap-4">
                             {transcripts && transcripts.map((transcript) => (
                                 <TranscriptCard
                                     key={transcript.id}
