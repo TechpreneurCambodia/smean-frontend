@@ -4,9 +4,9 @@ import { Pencil } from "lucide-react";
 import SummaryNoDetail from '../../components/SummaryNoDetail';
 import TimeAndRecorder from '../../components/TimeAndRecorder';
 import MinuteOption from '../../components/MinuteOption';
-import DateTime from '../../components/DateTime';
-import Layout from '../../components/Layout';
-
+import Layout from '@/components/Layout';
+import DateTime from '@/components/DateTime';
+import { Tooltip } from '@mui/material';
 function Page() {
     const [recordings, setRecordings] = useState([]);
     const [recordingTitle, setRecordingTitle] = useState("កំណត់ឈ្មោះថត");
@@ -34,7 +34,9 @@ function Page() {
                             onChange={(e) => setRecordingTitle(e.target.value)}
                             className="flex-1 p-2 text-lg border-none outline-none bg-transparent"
                         />
-                        <Pencil size={20} className="text-gray-500 cursor-pointer" />
+                        <Tooltip title="កែឈ្មោះចំណងជើង" arrow>
+                            <Pencil size={20} className="text-gray-500 cursor-pointer" />
+                        </Tooltip>
                     </div>
                 </div>
 

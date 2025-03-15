@@ -2,8 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, Trash, Check } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Tooltip } from "@mui/material";
+
 
 const Playback = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -47,34 +49,49 @@ const Playback = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-            <h1 className="text-2xl font-bold mb-4">ចាក់សំឡេងឡើងវិញ</h1>
+        <div className="flex  flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+            <h1 className="text-4xl font-semibold mt-4 mb-6">ចាក់សំឡេងឡើងវិញ</h1>
 
-            <div className="w-full max-w-md mb-4 rounded-lg overflow-hidden">
+            <div className="w-full max-w-md mb-4 mt-4 rounded-lg overflow-hidden">
                 <div ref={waveformRef}></div>
             </div>
 
             {/* Play/Pause Button */}
             <button
                 onClick={togglePlay}
-                className="flex items-center justify-center w-24 h-12 bg-primary text-white rounded-full shadow-lg hover:bg-blue-600 transition"
+                className="flex items-center mt-2 mb-2 justify-center  w-16 h-16 bg-primary text-white rounded-full shadow-sm hover:bg-blue-600 transition"
             >
-                {isPlaying ? <Pause size={28} /> : <Play size={28} />}
+                {isPlaying ? 
+                    <Tooltip title="ផ្អាក" arrow>
+                        <Pause size={28} />
+                    </Tooltip> : 
+                    <Tooltip title="ចាក់" arrow>
+                        <Play size={28} />
+                    </Tooltip>
+                }
             </button>
 
             {/* Action Buttons */}
-            <div className="flex gap-4 mt-6">
+            <div className="flex gap-4 mt-8">
                 <button
                     onClick={() => router.push("/recordingpage")}
-                    className="px-6 py-3 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition"
+                    className="w-36 mr-6 px-6 py-3 border border-red-400 bg-white text-red-400 rounded-full shadow-sm hover:border-red-700  hover:text-red-700 transition"
                 >
-                    បោះបង់
+                    <div className="flex items-center justify-start">
+                        <Trash className="mr-2" />
+                        <span>បោះបង់</span>
+                    </div>
+
                 </button>
                 <button
                     onClick={() => router.push("/notes")}
-                    className="px-6 py-3 bg-green-500 text-white rounded-lg shadow hover:bg-green-600 transition"
+                    className="w-36 px-6 py-3 border border-green-400 bg-white text-green-400 rounded-full shadow-sm hover:border-green-700  hover:text-green-700 transition"
                 >
-                    ទទួលយក
+                    <div className="flex items-center justify-start">
+                        <Check className="mr-2" /> 
+                        <span>ទទួលយក</span>
+                    </div>
+                   
                 </button>
             </div>
         </div>

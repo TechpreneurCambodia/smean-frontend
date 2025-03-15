@@ -14,6 +14,7 @@ import { Pencil } from "lucide-react";
 import { updateNoteTitle } from "@/services/api/notes/update";
 import { Input } from "@/components/ui/input";
 import Rename from "./Rename";
+import { Tooltip } from '@mui/material';
 
 const Page = () => {
   const params = useParams();
