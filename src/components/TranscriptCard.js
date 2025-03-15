@@ -1,5 +1,5 @@
 // src/components/TranscriptCard.js
-'use client'; // Mark this as a Client Component
+'use client';
 
 import React, { useState } from 'react';
 import { MoveRight } from 'lucide-react';
@@ -13,11 +13,11 @@ function TranscriptCard({
   const [isHovered, setIsHovered] = useState(false);
 
   const cardStyle = {
-    maxWidth: '100%',
+    width: '100%', // Make it span the entire row
     backgroundColor: '#f2f8f9',
     borderRadius: '4px',
     padding: '32px 24px',
-    margin: '12px',
+    margin: '12px 0', // Full-width; adjust margin accordingly
     textDecoration: 'none',
     position: 'relative',
     overflow: 'hidden',
@@ -79,11 +79,11 @@ function TranscriptCard({
   };
 
   return (
-    <div className="card">
+    <div className="w-full"> {/* Ensure full width */}
       <a
         href={href}
         style={cardStyle}
-        className="card1"
+        className="w-full block"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

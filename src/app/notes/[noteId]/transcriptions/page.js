@@ -6,6 +6,8 @@ import Layout from '@/components/Layout';
 import { getNoteTranscriptionDetails } from '@/services/api/notes/details';
 import { useParams } from 'next/navigation'
 import { convertToTimestamp } from '@/services/utils/convert-to-timestamp';
+import PlayBackComponent from '@/app/playback/PlayBackComponent';
+import Rename from './details/Rename';
 
 
 const Page = () => {
@@ -38,18 +40,20 @@ const Page = () => {
                         <h1 className="text-5xl text-primary font-bold">
                             កំណត់ត្រាសង្ខេបរបស់អ្នក
                         </h1>
-                        <p>{note.title}</p>
+                        <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
+                        <Rename/>
+                        </h2>
                     </div>
                     <div>
-                        <Player />
+                        <PlayBackComponent/>
                     </div>
                 </div>
                 <div className="hidden md:block bg-gray-300 w-1 h-auto"></div>
                 <div className="flex flex-row w-full max-w-2xl gap-5">
                     <div className="w-1 h-screen bg-gray"></div>
-                    <div>
+                    <div className="w-full">
                         <h1 className="text-4xl font-bold">សង្ខេបសម្លេងជាអក្សរ</h1>
-                        <div className="flex flex-col gap-4">
+                        <div className="w-full flex flex-col gap-4">
                             {transcripts && transcripts.map((transcript) => (
                                 <TranscriptCard
                                     key={transcript.id}
