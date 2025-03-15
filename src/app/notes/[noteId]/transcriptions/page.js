@@ -1,5 +1,3 @@
-// TODO: Update UI
-
 'use client';
 import React, { useEffect, useState } from 'react';
 import TranscriptCard from '@/components/TranscriptCard';
