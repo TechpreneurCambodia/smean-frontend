@@ -8,6 +8,8 @@ import Layout from '@/components/Layout';
 import { getNoteTranscriptionDetails } from '@/services/api/notes/details';
 import { useParams } from 'next/navigation'
 import { convertToTimestamp } from '@/services/utils/convert-to-timestamp';
+import PlayBackComponent from '@/app/playback/PlayBackComponent';
+import Rename from './details/Rename';
 
 
 const Page = () => {
@@ -40,10 +42,12 @@ const Page = () => {
                         <h1 className="text-5xl text-primary font-bold">
                             កំណត់ត្រាសង្ខេបរបស់អ្នក
                         </h1>
-                        <p>{note.title}</p>
+                        <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
+                        <Rename/>
+                        </h2>
                     </div>
                     <div>
-                        <Player />
+                        <PlayBackComponent/>
                     </div>
                 </div>
                 <div className="hidden md:block bg-gray-300 w-1 h-auto"></div>
