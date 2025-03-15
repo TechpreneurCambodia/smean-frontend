@@ -13,6 +13,7 @@ import BackButton from '@/components/BackButton';
 import { Pencil } from 'lucide-react';
 import { updateNoteTitle } from '@/services/api/notes/update';
 import { Input } from '@/components/ui/input';
+import { Tooltip } from '@mui/material';
 
 const Page = () => {
     const params = useParams()
@@ -60,10 +61,12 @@ const Page = () => {
                     ) : (
                         <span>{note.title}</span>
                     )}
-                    <Pencil
-                        className="w-5 h-5 text-gray-500 cursor-pointer hover:text-black"
-                        onClick={() => setIsEditing(true)}
-                    />
+                    <Tooltip title="កែឈ្មោះចំណងជើង" arrow>
+                        <Pencil
+                            className="w-5 h-5 text-gray-500 cursor-pointer hover:text-black"
+                            onClick={() => setIsEditing(true)}
+                        />
+                    </Tooltip>
                     {isEditing && (
                         <button
                             onClick={update}
