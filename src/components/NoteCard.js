@@ -1,7 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MoveRight, Pencil, Trash2 } from "lucide-react";
 import { Tooltip } from "@mui/material";
+import { updateNoteTitle } from "@/services/api/notes/update";
+import { getNoteTranscriptionDetails } from "@/services/api/notes/details";
 
 function NoteCard({
   id,
@@ -9,43 +11,57 @@ function NoteCard({
   description = "Card description with lots of great facts and interesting details.",
   href = "#",
   onHeadingUpdate,
-  onDelete, // Add onDelete prop
+  onDelete, // Delete handler passed from parent
 }) {
+  // Local state for hover, editing, loading, etc.
   const [isHovered, setIsHovered] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentHeading, setCurrentHeading] = useState(heading);
   const [isLoading, setIsLoading] = useState(false);
+  const [newTitle, setNewTitle] = useState("");
+  const [note, setNote] = useState(null);
+  const [transcripts, setTranscripts] = useState(null);
 
-  const handleHeadingSubmit = async (e) => {
-    if (e.key === "Enter" || e.type === "blur") {
-      setIsEditing(false);
-      if (currentHeading.trim() && currentHeading !== heading) {
-        setIsLoading(true);
+  // Fetch the details for this note based on its id prop
+  useEffect(() => {
+    if (id) {
+      async function fetchNoteDetails() {
         try {
-          const response = await fetch(`/api/notes/${id}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ heading: currentHeading }),
-          });
-
-          if (!response.ok) {
-            throw new Error("Failed to update heading");
-          }
-
-          onHeadingUpdate?.(currentHeading);
+          const { note, data } = await getNoteTranscriptionDetails(id);
+          setTranscripts(data);
+          setNote(note);
+          setNewTitle(note?.title || "");
+          setCurrentHeading(note?.title || heading);
         } catch (error) {
-          console.error("Error updating heading:", error);
-          setCurrentHeading(heading);
-          alert("Failed to save changes. Please try again.");
-        } finally {
-          setIsLoading(false);
+          console.error("Error fetching note details:", error);
         }
       }
+      fetchNoteDetails();
+    }
+  }, [id, heading]);
+
+  // Update the note title in the database
+  const update = async () => {
+    if (!id || !newTitle.trim()) return;
+    setIsLoading(true);
+    try {
+      await updateNoteTitle(id, newTitle);
+      // Update local state with the new title
+      setNote(prev => ({ ...prev, title: newTitle }));
+      setCurrentHeading(newTitle);
+      setIsEditing(false);
+      // Optionally, notify parent component about the update
+      if (onHeadingUpdate) {
+        onHeadingUpdate(newTitle);
+      }
+    } catch (error) {
+      console.error("Error updating note title:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  // Styles (you can refactor these out if needed)
   const cardStyle = {
     maxWidth: "100%",
     backgroundColor: "#f2f8f9",
@@ -150,7 +166,7 @@ function NoteCard({
               className="w-5 h-5 text-red-600 hover:text-red-800 cursor-pointer"
               onClick={(e) => {
                 e.preventDefault();
-                onDelete(); // Call the delete handler
+                onDelete(); // Call the delete handler passed from parent
               }}
             />
           </Tooltip>
@@ -159,11 +175,12 @@ function NoteCard({
           {isEditing ? (
             <input
               type="text"
-              value={currentHeading}
-              onChange={(e) => setCurrentHeading(e.target.value)}
-              onKeyDown={handleHeadingSubmit}
-              onBlur={handleHeadingSubmit}
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
               autoFocus
+              onKeyDown={(e) => {
+                if (e.key === "Enter") update();
+              }}
               style={editInputStyle}
               disabled={isLoading}
             />
@@ -193,6 +210,9 @@ function NoteCard({
               } hover:text-[#00838d] hover:scale-110 transition-all duration-200`}
               onClick={(e) => {
                 e.preventDefault();
+                if (isEditing) {
+                  update(); // Save if editing
+                }
                 setIsEditing(!isEditing);
               }}
             />
