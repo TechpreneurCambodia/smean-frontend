@@ -30,17 +30,13 @@ const RecordPage = () => {
         <div className="flex items-center flex-col w-1/2 pr-4 mt-24">
           <TimeAndRecorder setAudioUrl={setAudioSrc} />
           
-          {/* Waveform Section (always visible, updates when audio exists) */}
-          <div className="flex items-center ml-60 mt-8 w-full max-w-md">
-            
-            <PlayAudio audioSrc={audioSrc} />
-          </div>
+          
         </div>
 
         {/* Summary Transcript Section */}
-        <div className="flex-1 pl-4">
+        {/* <div className="flex-1 pl-4">
           <SummaryTranscript />
-        </div>
+        </div> */}
       </div>
     </div>
   );
