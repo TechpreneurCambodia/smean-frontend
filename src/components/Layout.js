@@ -27,11 +27,11 @@ function SidebarLayout({ children }) {
 
   return (
     <div className="flex flex-col w-screen h-screen overflow">
-      <div className="w-full bg-white">
+      <div className="w-full bg-base-100">
         {/* Pass isSidebarOpen as a prop to NavBar */}
         <NavBar isSidebarOpen={isSidebarOpen} />
       </div>
-      <div className="flex flex-grow bg-white">
+      <div className="flex flex-grow bg-base-100">
         {/* Sidebar */}
         <AppSidebar isOpen={isSidebarOpen} /> {/* Pass the state to AppSidebar if it needs it */}
         <div className="flex flex-col flex-grow px-4 sm:px-6 md:px-12 lg:px-24 overflow-auto relative">
