@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
 import { Play, Pause } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Tooltip } from "@mui/material";
 
 const Playback = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -59,7 +60,14 @@ const Playback = () => {
                 onClick={togglePlay}
                 className="flex items-center justify-center w-24 h-12 bg-primary text-white rounded-full shadow-lg hover:bg-blue-600 transition"
             >
-                {isPlaying ? <Pause size={28} /> : <Play size={28} />}
+                {isPlaying ? 
+                    <Tooltip title="ផ្អាក" arrow>
+                        <Pause size={28} />
+                    </Tooltip> : 
+                    <Tooltip title="ចាក់" arrow>
+                        <Play size={28} />
+                    </Tooltip>
+                }
             </button>
 
             {/* Action Buttons */}

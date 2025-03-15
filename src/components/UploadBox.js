@@ -1,5 +1,6 @@
 import { CircleX } from 'lucide-react';
 import React, { useState, useCallback } from 'react';
+import { Tooltip } from '@mui/material';
 
 function UploadBox({ onFilesSelected }) {
     const [isDragging, setIsDragging] = useState(false);
@@ -167,7 +168,9 @@ function UploadBox({ onFilesSelected }) {
                                         }}
                                         className="text-[#8a8585] hover:text-black text-xl"
                                     >
-                                        <CircleX />
+                                        <Tooltip title="លុប" arrow>
+                                            <CircleX />
+                                        </Tooltip>
                                     </button>
                                 </div>
                             </div>
@@ -178,7 +181,7 @@ function UploadBox({ onFilesSelected }) {
                         onClick={clearFiles}
                         className="mt-4 px-4 py-2 bg-gradient-to-r from-red-600 to-red-800 text-white rounded-full hover:from-red-700 hover:to-red-900 hover:shadow-xl transition-all duration-300 transform hover:scale-105 active:scale-95"
                     >
-                        ជម្រះឯកសារទាំងអស់
+                        លុបឯកសារទាំងអស់
                     </button>
                 </div>
             )}

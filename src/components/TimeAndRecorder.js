@@ -2,6 +2,7 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation"; // Import useRouter for navigation
 import { Pause, Mic, Square } from "lucide-react";
+import { Tooltip } from "@mui/material";
 
 const TimeAndRecorder = () => {
   const [recording, setRecording] = useState(false);
@@ -89,20 +90,28 @@ const TimeAndRecorder = () => {
       <div className="flex gap-2">
         {!recording ? (
           <button onClick={handleStartRecording} className="w-10 mr-4 h-10 flex items-center justify-center rounded-full border border-gray-400">
-            <Mic className="text-gray-500 w-6 h-6" />
+            <Tooltip titlt="ចុចថតសម្លេង" arrow>
+              <Mic className="text-gray-500 w-6 h-6" />
+            </Tooltip>
           </button>
         ) : paused ? (
           <button onClick={handleResumeRecording} className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400">
-            <Mic className="text-green-500 w-6 h-6" />
+            <Tooltip titlt="ចុចថតសម្លេង" arrow>
+              <Mic className="text-green-500 w-6 h-6" />
+            </Tooltip>
           </button>
         ) : (
           <button onClick={handlePauseRecording} className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400">
-            <Pause className="text-yellow-500 w-6 h-6" />
+            <Tooltip titlt="ផ្អាក" arrow>
+              <Pause className="text-yellow-500 w-6 h-6" />
+            </Tooltip>
           </button>
         )}
         {recording && (
           <button onClick={handleStopRecording} className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400">
-            <Square className="text-red-500 w-6 h-6" />
+            <Tooltip titlt="បញ្ចប់ការថត" arrow>
+              <Square className="text-red-500 w-6 h-6" />
+            </Tooltip>
           </button>
         )}
       </div>

@@ -2,6 +2,8 @@
 'use client'; // Mark this as a Client Component
 
 import React, { useState } from 'react';
+import { MoveRight } from 'lucide-react';
+import { Tooltip } from '@mui/material';
 
 function TranscriptCard({
   heading = "This is heading",
@@ -90,7 +92,9 @@ function TranscriptCard({
         <p style={descriptionStyle} className="small">{description}</p>
         <div style={goCornerStyle} className="go-corner">
           <div style={goArrowStyle} className="go-arrow">
-            →
+            <Tooltip title="មើលបន្ថែម" arrow>
+              <MoveRight className='w-5 h-5'/>
+            </Tooltip>
           </div>
         </div>
       </a>
