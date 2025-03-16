@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { eraseCookie, setCookie } from '../utils/cookies';
+import { eraseCookie, setCookie, getCookie } from '../utils/cookies';
 import axiosInstance from '../axiosInstance';
 
 // Login function
@@ -30,11 +30,16 @@ export const registerUser = async ({ firstName, lastName, email, username, passw
 // Logout function
 export const logoutUser = async () => {
     try {
-        await axiosInstance.post(`/auth/logout`);
-        eraseCookie('access_token');
-        eraseCookie('refresh_token');
-        window.location.href = '/login';
+      const token = getCookie('access_token');
+     
+      await axiosInstance.post('/auth/logout', { refreshToken: getCookie('refresh_token') });
+
+  
+      eraseCookie('access_token');
+      eraseCookie('refresh_token');
+      window.location.href = '/login';
     } catch (error) {
-        console.error('Logout error:', error);
+      console.error('Logout error:', error);
+      toast.error(humanize(error.message));
     }
-};
+  };

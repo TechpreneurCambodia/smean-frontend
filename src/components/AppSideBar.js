@@ -31,6 +31,7 @@ import AppSideBarFooter from "./AppSideBarFooter";
 import toast from 'react-hot-toast';
 import { getRecentNotes } from '@/services/api/notes';
 import Layout from './Layout';
+import LogOut from './LogOut';
 
 // Menu items.
 const items = [
@@ -141,6 +142,7 @@ const fetchNotes = async () => {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
+          <LogOut />
         </SidebarGroup>
       </SidebarContent>
       {/* reomove siderbar */}
