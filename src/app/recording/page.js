@@ -1,9 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { Pencil } from "lucide-react";
-import SummaryNoDetail from '../../components/SummaryNoDetail';
 import TimeAndRecorder from '../../components/TimeAndRecorder';
-import MinuteOption from '../../components/MinuteOption';
 import Layout from '@/components/Layout';
 import DateTime from '@/components/DateTime';
 import { Tooltip } from '@mui/material';
