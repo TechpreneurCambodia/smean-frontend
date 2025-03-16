@@ -26,7 +26,9 @@ function SidebarLayout({ children }) {
   };
 
   return (
-    <div className="flex flex-col w-screen h-screen overflow-hidden">
+    <div className="flex flex-col w-screen min-h-screen">
+      {" "}
+      {/* Changed h-screen to min-h-screen */}
       <div className="w-full bg-base-100">
         <NavBar isSidebarOpen={isSidebarOpen} />
       </div>
