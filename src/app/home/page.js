@@ -1,11 +1,22 @@
-'use client';
-import ActionButton from '@/components/ActionButton';
-import Welcome from './Welcome';
-import Layout from '@/components/Layout';
-import { useUser } from '@/contexts/userContext';
+"use client";
+
+import ActionButton from "@/components/ActionButton";
+import Welcome from "./Welcome";
+import Layout from "@/components/Layout";
+import { useUser } from "@/contexts/userContext";
 
 function Page() {
-    const { user } = useUser();
+    const { user, loading } = useUser(); // Destructure loading state
+    console.log("User:", user);
+
+    // Handle loading state
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <span className="loading loading-dots loading-xl"></span>
+            </div>
+        );
+    }
 
     return (
         <Layout>

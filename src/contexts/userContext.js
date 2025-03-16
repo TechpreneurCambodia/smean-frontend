@@ -1,27 +1,36 @@
-'use client';
-import { createContext, useContext, useState, useEffect } from 'react';
-import axiosInstance from '@/services/axiosInstance';
+"use client";
+
+import { createContext, useContext, useState, useEffect } from "react";
+import axiosInstance from "@/services/axiosInstance";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchUserInfo = async () => {
-            try {
-                const response = await axiosInstance.get('/auth/me'); 
-                setUser(response.data);
-            } catch (error) {
-                console.error('Error fetching user info:', error);
-            }
+        const fetchUserInfo = () => {
+            axiosInstance.get("/auth/me")
+                .then((response) => {
+                    setUser(response.data);
+                })
+                .catch(() => {
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
         };
+        if (window.location.pathname !== '/login' && window.location.pathname !== '/signup') {
+            fetchUserInfo();
+        } else {
+            setLoading(false);
+        }
 
-        fetchUserInfo();
     }, []);
 
     return (
-        <UserContext.Provider value={{ user }}>
+        <UserContext.Provider value={{ user, loading }}>
             {children}
         </UserContext.Provider>
     );
