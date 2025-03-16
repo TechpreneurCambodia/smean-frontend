@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 
 export const  updateNoteTitle = async (noteId, title) => {
     try {
+        console.log(noteId);
         const { data } = await axiosInstance.patch(`/notes/${noteId}`, { title });
         toast.success('Note title updated');
         return data;
