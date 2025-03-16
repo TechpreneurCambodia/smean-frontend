@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
 import NoteCard from '@/components/NoteCard';
-import { getAllNotes, deleteNote } from '@/services/api/notes';
+import { getAllNotes } from '@/services/api/notes';
+import { deleteNote } from '@/services/api/notes/delete';
 
 export default function Page() {
     const [notes, setNotes] = useState(null);
@@ -18,8 +19,8 @@ export default function Page() {
     // Function to handle note deletion
     const handleDeleteNote = async (id) => {
         try {
-            await deleteNote(id); // Call the API to delete the note
-            setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id)); // Update the state
+            await deleteNote(id);
+            setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id)); // Update the state to remove the deleted note
         } catch (error) {
             console.error('Failed to delete note:', error);
         }
@@ -47,7 +48,7 @@ export default function Page() {
                                 heading={note.title}
                                 description={formattedDate}
                                 href={`/notes/${note.id}/transcriptions`}
-                                onDelete={() => handleDeleteNote(note.id)} // Pass delete handler
+                                onDelete={() => handleDeleteNote(note.id)} // Pass delete handler to NoteCard
                             />
                         );
                     })}
