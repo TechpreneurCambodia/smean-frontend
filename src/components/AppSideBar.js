@@ -51,7 +51,7 @@ const items = [
   },
   {
     title: "ថតសំឡេងភ្លាមៗ",
-    url: "/recordingpage",
+    url: "/recording",
     icon: Mic,
   },
   {
