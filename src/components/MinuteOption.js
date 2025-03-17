@@ -15,7 +15,7 @@ function MinuteOption({ onSelect }) {
   };
 
   return (
-    <div className='w-[300px] items-center justify-center m-0'>
+    <div className='items-center justify-center m-0'>
       <details
         className="dropdown"
         open={isOpen}

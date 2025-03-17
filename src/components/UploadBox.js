@@ -103,7 +103,7 @@ function UploadBox({ onFilesSelected }) {
 
     return (
         <div 
-            className={`border-2 border-dashed border-sky-400 rounded-lg mx-4 sm:mx-8 md:mx-0 my-4 p-6 w-full max-w-4xl mx-auto ${isDragging ? 'bg-sky-100' : 'bg-white'} transition-colors duration-300 hover:shadow-md`}
+            className={`border-2 border-dashed border-sky-400 rounded-lg sm:mx-8 md:mx-0 my-4 p-6 w-full max-w-4xl mx-auto ${isDragging ? 'bg-sky-100' : 'bg-white'} transition-colors duration-300 hover:shadow-md`}
             onDrop={onDrop}
             onDragOver={onDragOver}
             onDragLeave={onDragLeave}
