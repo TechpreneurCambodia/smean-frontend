@@ -144,7 +144,7 @@ export function AppSidebar() {
             <SquarePen className="w-4 h-4 text-gray-500 hover:text-gray-700 cursor-pointer" />
             <Search className="w-4 h-4 text-gray-500 hover:text-gray-700 cursor-pointer" />
           </div>
-          <SidebarGroupLabel className="mb-1"> <span className="text-xl text-[#0F172A]">ម៉ឺនុយកម្មវិធី</span>​​</SidebarGroupLabel>
+          <SidebarGroupLabel className="mb-2"> <span className="text-2xl text-primary">ម៉ឺនុយកម្មវិធី</span>​​</SidebarGroupLabel>
           <hr className="border-gray w-full mb-2" />
           <SidebarGroupContent>
             <SidebarMenu>
@@ -153,10 +153,10 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <a
                       href={item.url}
-                      className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-300 ${
+                      className={`flex items-center gap-3 py-6 text-xl rounded-lg transition-all duration-300 ${
                         activePath === item.url
-                          ? 'bg-primary70 text-primary text-md font-medium  hover:bg-primary70'
-                          : 'font-medium hover:bg-primary70'
+                          ? 'bg-gray text-primary text-xl font-medium  hover:bg-gray hover:text-primary text-gray-600'
+                          : 'font-medium hover:bg-gray hover:text-primary text-gray-600'
                       }`}
                       onClick={(e) => {
                         e.preventDefault();
@@ -172,7 +172,7 @@ export function AppSidebar() {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
-          <SidebarGroupLabel className="mt-2 mb-1 "><span className="text-xl text-[#0F172A]">ប្រវត្តិរបស់អ្នក</span></SidebarGroupLabel>
+          <SidebarGroupLabel className="mt-2 mb-2 "><span className="text-2xl text-primary">ប្រវត្តិរបស់អ្នក</span></SidebarGroupLabel>
           <hr className="border-gray w-full mb-2" />
 
           <SidebarGroupContent>
