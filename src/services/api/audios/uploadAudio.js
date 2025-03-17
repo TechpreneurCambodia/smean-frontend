@@ -21,11 +21,7 @@ export const uploadAudio = async ({files, chunkDuration = 180, title}) => {
     else
         formData.append('title', files[0].name.split('.').slice(0, -1).join('.'));
     try {
-<<<<<<< HEAD
         toast.loading('កំពុងបញ្ចូលអូឌីយ៉ូ...', { duration: Infinity }); 
-=======
-        toast.loading('Uploading audio...', { duration: Infinity });
->>>>>>> 66effc3cdd4da1a64e575fec6e130bb355c93888
         const { data } = await axiosInstance.post('/audio/split-and-upload', formData);
         toast.success('Upload successful.');
         return data;
