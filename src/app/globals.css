@@ -4,7 +4,7 @@
 
 body {
   font-family: var(--font-body), sans-serif; /* Use the Next.js font variable */
-  @apply text-base text-foreground;
+  @apply text-base;
 }
 
 @layer base {
@@ -42,7 +42,8 @@ body {
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%}
+    --sidebar-ring: 217.2 91.2% 59.8%
+  }
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;

@@ -25,6 +25,7 @@ export default {
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',
                 primaryText: '#A3E1FA',
+                primaryTextGray: '#64748B',
                 primary: {
                     DEFAULT: '#0D6074',
                     foreground: 'hsl(var(--primary-foreground))',

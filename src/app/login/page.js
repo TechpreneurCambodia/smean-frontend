@@ -10,11 +10,12 @@ import { loginUser } from "@/services/api/auth";
 import toast from "react-hot-toast";
 import { humanize } from "@/services/utils/humanize";
 import PublicRoute from "@/components/PublicRoute";
+import { useUser } from "@/contexts/userContext";
 
 export default function Page() {
   const router = useRouter();
   const [form, setForm] = useState({ usernameOrEmail: "", password: "" });
-
+  const { setUserState} = useUser();
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -22,7 +23,8 @@ export default function Page() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await loginUser(form);
+      const data = await loginUser(form);
+      setUserState(data.user);
       router.push('/home'); // Redirect after login
       toast.success("Login successful!");
     } catch (error) {

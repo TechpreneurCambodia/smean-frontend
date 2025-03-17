@@ -15,7 +15,6 @@ axiosInstance.interceptors.request.use(
     const language = getCookie('language') || 'en';
     if (access_token) {
       config.headers['Authorization'] = `Bearer ${access_token}`;
-      console.log('Access token attached:', access_token);
     } else {
       console.warn('No access token found in cookies');
     }

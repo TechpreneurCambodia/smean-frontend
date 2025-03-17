@@ -18,7 +18,7 @@ export const loginUser = async ({ usernameOrEmail, password }) => {
 // Register function
 export const registerUser = async ({ firstName, lastName, email, username, password }) => {
     try {
-        const { data } = await axiosInstance.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, { firstName, lastName, email, username, password });
+        const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, { firstName, lastName, email, username, password });
         const maxAge = 60 * 60 * 24; // 1 day in seconds
         setCookie('access_token', data.access_token, maxAge);
         setCookie('refresh_token', data.refresh_token, maxAge + 1);
@@ -30,16 +30,16 @@ export const registerUser = async ({ firstName, lastName, email, username, passw
 // Logout function
 export const logoutUser = async () => {
     try {
-      const token = getCookie('access_token');
-     
-      await axiosInstance.post('/auth/logout', { refreshToken: getCookie('refresh_token') });
+        const token = getCookie('access_token');
 
-  
-      eraseCookie('access_token');
-      eraseCookie('refresh_token');
-      window.location.href = '/login';
+        await axiosInstance.post('/auth/logout', { refreshToken: getCookie('refresh_token') });
+
+
+        eraseCookie('access_token');
+        eraseCookie('refresh_token');
+        window.location.href = '/login';
     } catch (error) {
-      console.error('Logout error:', error);
-      toast.error(humanize(error.message));
+        console.error('Logout error:', error);
+        toast.error(humanize(error.message));
     }
-  };
+};
