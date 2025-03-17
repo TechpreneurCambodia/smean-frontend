@@ -10,7 +10,7 @@ function ActionButton() {
 
   return (
     <div className="flex flex-col items-center gap-6">
-      <p className="text-[#64748B] text-center">
+      <p className="text-[#64748B] text-xl text-center">
         ស្មៀនជួយក្នុងការបកប្រែអាត់សម្លេងទៅជាល្បះអក្សរ។<br />
         អ្នកប្រើប្រាស់អាច upload audio file ឬ​ ធ្វើការថតសម្លេងដោយផ្តាល់។
       </p>
@@ -20,14 +20,14 @@ function ActionButton() {
           onClick={() => router.push("/recording")}
           aria-label="Record Audio"
         >
-          <Mic className="mr-2" /> ថតសម្លេង
+          <Mic className="mr-2" />  <span className="text-xl">ថតសម្លេង</span>
         </button>
         <button
           className={baseButton}
           onClick={() => router.push("/upload")}
           aria-label="Upload Audio File"
         >
-          <Upload className="mr-2" /> File សម្លេង
+          <Upload className="mr-2" /> <span className="text-xl">File សម្លេង</span> 
         </button>
       </div>
     </div>
