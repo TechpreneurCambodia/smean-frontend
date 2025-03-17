@@ -11,20 +11,20 @@ function DeleteConfirmationModal({ isOpen, onConfirm, onCancel }) {
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-80">
-        <h2 className="text-xl font-bold mb-4">Confirm Deletion</h2>
-        <p className="mb-6">Are you sure you want to delete this note?</p>
+        <h2 className="text-xl font-bold mb-4">បញ្ជាក់ការលុប</h2>
+        <p className="mb-6">តើអ្នកប្រាកដជាចង់លុបកំណត់ត្រានេះពិតមែនដែរឬទេ?</p>
         <div className="flex justify-end">
           <button 
             className="bg-primary text-white px-4 py-2 mr-2 rounded"
             onClick={onCancel}
           >
-            Cancel
+            បោះបង់
           </button>
           <button 
             className="bg-red-600 text-white px-4 py-2 rounded"
             onClick={onConfirm}
           >
-            Delete
+            លុប
           </button>
         </div>
       </div>
@@ -70,7 +70,7 @@ export default function Page() {
   };
 
   if (!notes) {
-    return <Layout>Loading...</Layout>;
+    return <Layout>កំពុងផ្ទុក...</Layout>;
   }
 
   // Sort notes by createdAt date (most recent first)
