@@ -27,7 +27,7 @@ export default function Page() {
         setIsUploading(true);
         try {
             const originalFiles = uploadedFiles.map(file => file.file);
-            const res = await uploadAudio(originalFiles);
+            const res = await uploadAudio({ files: originalFiles });
             console.log('Upload Response:', res);
 
             setIsUploading(false);

@@ -14,7 +14,7 @@ const Button = ({ text, onClick }) => {
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
   >
-    <button className="px-5 py-2" onClick={onClick}>
+    <button className="w-full px-5 py-2" onClick={onClick}>
       {text}
     </button>
   </motion.div>

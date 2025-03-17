@@ -4,13 +4,14 @@ import { Pause, Mic, Square, Trash, Check } from "lucide-react";
 import { Tooltip } from "@mui/material";
 import { uploadAudio } from "@/services/api/audios/uploadAudio";
 import PlayBackComponent from "./PlayBackComponent";
+import toast from "react-hot-toast";
 
-const TimeAndRecorder = () => {
+const TimeAndRecorder = ({ title = 'recording', minutes = 1 }) => {
   const [recording, setRecording] = useState(false);
   const [paused, setPaused] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const [audioUrl, setAudioUrl] = useState(""); 
+  const [audioUrl, setAudioUrl] = useState("");
   const [file, setFile] = useState("");
   const [confirmDisabled, setConfirmDisabled] = useState(false);
   const mediaRecorderRef = useRef(null);
@@ -89,13 +90,14 @@ const TimeAndRecorder = () => {
 
   const handleUpload = async () => {
     setConfirmDisabled(true);
-    await uploadAudio([file])
+    await uploadAudio({ files: [file], title: title, chunkDuration: minutes * 60 })
       .then((res) => {
         const { note } = res;
         router.push(`/notes/${note.id}/transcriptions`);
       })
       .catch((err) => {
-        toast.error("An error occurred while uploading the file. Please try again.");
+        toast.error("An error occurred while uploading the file. Please try again.", err);
+        console.log(err);
       })
       .finally(() => {
         setConfirmDisabled(false);

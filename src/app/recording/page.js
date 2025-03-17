@@ -1,61 +1,54 @@
 "use client";
 import { useState } from 'react';
-import { Pencil } from "lucide-react";
+import { Tooltip } from '@mui/material';
 import TimeAndRecorder from '../../components/TimeAndRecorder';
 import Layout from '@/components/Layout';
-import DateTime from '@/components/DateTime';
-import { Tooltip } from '@mui/material';
-function Page() {
-    const [recordings, setRecordings] = useState([]);
-    const [recordingTitle, setRecordingTitle] = useState("កំណត់ឈ្មោះថត");
+import MinuteOption from '@/components/MinuteOption';
+import { FileTextIcon, Text, TextIcon } from 'lucide-react';
 
-    const addRecording = (recording) => {
-        setRecordings((prevRecordings) => [...prevRecordings, recording]);
+function Page() {
+    const [recordingTitle, setRecordingTitle] = useState('');
+    const [selectedMinutes, setSelectedMinutes] = useState(3);
+    const handleTitleChange = (e) => {
+        setRecordingTitle(e.target.value);
+    };
+    const handleMinuteSelection = (minutes) => {
+        setSelectedMinutes(minutes);
+        console.log(`Selected minutes: ${minutes}`);
     };
 
     return (
         <Layout>
-            <div className="m-4 flex flex-col min-h-screen">
-                <DateTime />
-                
-                {/* Page Title */}
-                <div className="flex flex-col items-start">
-                    <h2 className="font-bold text-[36px] flex items-center p-5 text-primary">
+            <div className="m-4 flex flex-col min-h-screen align-center">
+
+                <div className="flex flex-col items-center">
+                    <h2 className="font-bold text-[36px] p-5 text-primary">
                         ថតសំឡេងរបស់អ្នក
                     </h2>
 
-                    {/* Editable Recording Title */}
-                    <div className="flex items-center gap-2 p-3 border rounded-lg shadow-md w-full max-w-md bg-white">
-                        <input
-                            type="text"
-                            value={recordingTitle}
-                            onChange={(e) => setRecordingTitle(e.target.value)}
-                            className="flex-1 p-2 text-lg border-none outline-none bg-transparent"
-                        />
-                        <Tooltip title="កែឈ្មោះចំណងជើង" arrow>
-                            <Pencil size={20} className="text-gray-500 cursor-pointer" />
-                        </Tooltip>
+                    <img src='/recording-transcription.svg' alt='record' className='w-1/5 opacity-20' />
+                    <div className='grid grid-rows-2 mb-8 gap-4 items-center justify-center'>
+
+                        <div className='w-[300px] h-full flex flex-row justify-center items-center font-medium border border-primary text-primary rounded-md shadow-md'>
+                            <span className='flex flex-row justify-center items-center ml-4 mr-0'><FileTextIcon /></span>
+                            <input
+                                type="text"
+                                value={recordingTitle}
+                                onChange={handleTitleChange}
+                                className="w-auto flex-1 pl-2 border-none outline-none bg-transparent"
+                                placeholder="កំណត់ចំណងជើង"
+                            />
+
+                        </div>
+                        <MinuteOption onSelect={handleMinuteSelection} />
+
                     </div>
                 </div>
 
-                {/* Center the TimeAndRecorder */}
                 <div className="flex flex-grow justify-center items-center mb-80">
-                    <TimeAndRecorder addRecording={addRecording} />
+                    <TimeAndRecorder title={recordingTitle} minutes={selectedMinutes} />
                 </div>
 
-                {/* Display Recordings */}
-                <div className="mt-4">
-                    {recordings.map((recording, index) => (
-                        <div key={index} className="p-4 border border-gray-300 rounded-lg shadow-md">
-                            <h2 className="text-lg font-semibold">{recordingTitle} {index + 1}:</h2>
-                            <audio controls src={recording.audioUrl} className="mt-2"></audio>
-                            <h2 className="text-lg font-semibold mt-2">Transcript:</h2>
-                            <pre className="bg-gray-100 p-2 rounded">
-                                {JSON.stringify(recording.transcript, null, 2)}
-                            </pre>
-                        </div>
-                    ))}
-                </div>
             </div>
         </Layout>
     );
