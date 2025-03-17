@@ -1,6 +1,7 @@
 import { CircleX } from 'lucide-react';
 import React, { useState, useCallback } from 'react';
 import { Tooltip } from '@mui/material';
+import toast from 'react-hot-toast';
 
 function UploadBox({ onFilesSelected }) {
     const [isDragging, setIsDragging] = useState(false);
@@ -43,7 +44,6 @@ function UploadBox({ onFilesSelected }) {
                     });
                 };
     
-                // Handle cases where metadata might not load
                 audio.onerror = () => {
                     resolve({
                         file: file,
@@ -62,7 +62,6 @@ function UploadBox({ onFilesSelected }) {
             if (onFilesSelected) onFilesSelected([...files, ...updatedFiles]);
         });
     };
-    
 
     const onDragOver = (e) => {
         e.preventDefault();
@@ -79,23 +78,25 @@ function UploadBox({ onFilesSelected }) {
         if (onFilesSelected) onFilesSelected([]);
     };
 
+    const removeFile = (index) => {
+        const updatedFiles = files.filter((_, i) => i !== index);
+        setFiles(updatedFiles);
+        if (onFilesSelected) onFilesSelected(updatedFiles);
+        if (updatedFiles.length > 0) {
+            toast.success(`បានលុប "${files[index].name}" ដោយជោគជ័យ!`);
+        }
+    };
+
     const viewFile = (file) => {
         setSelectedFile(file);
         setIsPreviewOpen(true);
     };
 
-    const removeFile = (index) => {
-        const updatedFiles = files.filter((_, i) => i !== index);
-        setFiles(updatedFiles);
-        if (onFilesSelected) onFilesSelected(updatedFiles);
-    };
-
-    // Function to format duration (seconds to minutes if > 60s)
     const formatDuration = (duration) => {
         if (duration > 60) {
             const minutes = Math.floor(duration / 60);
             const remainingSeconds = duration % 60;
-            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')} min`; // e.g., "2:30 min"
+            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')} min`;
         }
         return `${duration} sec`;
     };
@@ -148,22 +149,22 @@ function UploadBox({ onFilesSelected }) {
                             </div>
                         </div>
 
-                        {/* Table Data - Clickable rows for preview with enhanced hover effect */}
+                        {/* Table Data */}
                         {files.map((file, index) => (
                             <div 
                                 key={index} 
                                 className="flex flex-row justify-between w-full bg-gray-500 rounded-xl p-2 text-black cursor-pointer hover:bg-gray-200 hover:shadow-2xl transition-all duration-300 ease-in-out hover:outline-offset-2 hover:outline-primary"
-                                onClick={() => viewFile(file)} // Click to preview
+                                onClick={() => viewFile(file)}
                             >
                                 <div className="flex items-center gap-2 flex-1">
                                     {file.name}
                                 </div>
                                 <div className="flex flex-row items-center gap-5">
                                     <div className='mr-2'>{(file.size / 1024 / 1024).toFixed(2)} MB</div>
-                                    <div >{file.duration ? formatDuration(file.duration) : 'កំពុងគណនា...'}</div>
+                                    <div>{file.duration ? formatDuration(file.duration) : 'កំពុងគណនា...'}</div>
                                     <button
                                         onClick={(e) => {
-                                            e.stopPropagation(); // Prevent triggering viewFile
+                                            e.stopPropagation();
                                             removeFile(index);
                                         }}
                                         className="text-[#8a8585] hover:text-black text-xl"
@@ -193,8 +194,6 @@ function UploadBox({ onFilesSelected }) {
                         <h2 className="text-lg font-bold mb-4">
                             ការមើលឯកសារជាមុន: {selectedFile.name}
                         </h2>
-
-                        {/* Preview logic for audio files */}
                         {selectedFile.type.startsWith('audio/') ? (
                             <audio controls className="w-full">
                                 <source src={selectedFile.fileURL} type={selectedFile.type} />
@@ -215,7 +214,7 @@ function UploadBox({ onFilesSelected }) {
                 </div>
             )}
         </div>
-    );  
+    );
 }
 
 export default UploadBox;
