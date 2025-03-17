@@ -11,6 +11,7 @@ export const UserProvider = ({ children }) => {
 
     useEffect(() => {
         const fetchUserInfo = () => {
+            setLoading(true);
             axiosInstance.get("/auth/me")
                 .then((response) => {
                     setUser(response.data);
@@ -28,9 +29,12 @@ export const UserProvider = ({ children }) => {
         }
 
     }, []);
+    function setUserState(user) {
+        setUser(user);
+    }
 
     return (
-        <UserContext.Provider value={{ user, loading }}>
+        <UserContext.Provider value={{ user, loading, setUserState }}>
             {children}
         </UserContext.Provider>
     );
