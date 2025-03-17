@@ -35,6 +35,11 @@ function MinuteOption() {
               5 នាទី
             </a>
           </li>
+          <li>
+            <a onClick={() => handleSelection('10 នាទី')}>
+              10 នាទី
+            </a>
+          </li>
         </ul>
       </details>
     </div>
