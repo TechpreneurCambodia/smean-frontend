@@ -6,10 +6,8 @@ import Layout from "@/components/Layout";
 import { useUser } from "@/contexts/userContext";
 
 function Page() {
-    const { user, loading } = useUser(); // Destructure loading state
-    console.log("User:", user);
+    const { user, loading } = useUser();
 
-    // Handle loading state
     if (loading) {
         return (
             <div className="flex justify-center items-center h-screen">

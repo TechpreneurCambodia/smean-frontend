@@ -6,15 +6,12 @@ import { AppSidebar } from "@/components/AppSideBar";
 import NavBar from "@/components/NavBar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Tooltip } from "@mui/material";
-import { UserProvider } from "@/contexts/userContext";
 
 export default function Layout({ children }) {
   return (
-    <UserProvider>
-      <SidebarProvider defaultOpen={false}>
-        <SidebarLayout>{children}</SidebarLayout>
-      </SidebarProvider>
-    </UserProvider>
+    <SidebarProvider defaultOpen={false}>
+      <SidebarLayout>{children}</SidebarLayout>
+    </SidebarProvider>
   );
 }
 function SidebarLayout({ children }) {
@@ -27,7 +24,6 @@ function SidebarLayout({ children }) {
   return (
     <div className="flex flex-col w-screen min-h-screen">
       {" "}
-      {/* Changed h-screen to min-h-screen */}
       <div className="w-full bg-base-100">
         <NavBar isSidebarOpen={isSidebarOpen} />
       </div>
