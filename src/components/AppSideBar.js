@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"; // Updated import for useEffect
+import React, { useState, useEffect } from "react";
 import {
   Home,
   FolderClosed,
@@ -7,6 +7,8 @@ import {
   Mic,
   Upload,
   Notebook,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 
 import {
@@ -21,73 +23,106 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
-import AppSideBarFooter from "./AppSideBarFooter";
 import toast from "react-hot-toast";
 import { getRecentNotes } from "@/services/api/notes";
-import Layout from "./Layout";
 import LogOut from "./LogOut";
 
-// Menu items.
 const items = [
-  {
-    title: "ផ្ទះ",
-    url: "/home",
-    icon: Home,
-  },
-  {
-    title: "សឺមីឯកសារ",
-    url: "/folder",
-    icon: FolderClosed,
-  },
-  {
-    title: "កំណត់ត្រា",
-    url: "/notes",
-    icon: Notebook,
-  },
-  {
-    title: "ថតសំឡេងភ្លាមៗ",
-    url: "/recording",
-    icon: Mic,
-  },
-  {
-    title: "បញ្ចូលឯកសារ",
-    url: "/upload",
-    icon: Upload,
-  },
+  { title: "ផ្ទះ", url: "/home", icon: Home },
+  { title: "សឺមីឯកសារ", url: "/folder", icon: FolderClosed },
+  { title: "កំណត់ត្រា", url: "/notes", icon: Notebook },
+  { title: "ថតសំឡេងភ្លាមៗ", url: "/recording", icon: Mic },
+  { title: "បញ្ចូលឯកសារ", url: "/upload", icon: Upload },
 ];
 
 export function AppSidebar() {
-  const [notes, setNotes] = useState(null);
-  // State to track the active page, initialized safely on the client side
+  const [notes, setNotes] = useState([]);
   const [activePath, setActivePath] = useState("/");
+  const [expandedGroups, setExpandedGroups] = useState({
+    today: true,
+    last7Days: true,
+    last30Days: true,
+    byMonth: {},
+  });
+
+  useEffect(() => {
+    fetchNotes();
+    setActivePath(window.location.pathname || "/");
+  }, []);
+
   const fetchNotes = async () => {
     try {
       const data = await getRecentNotes(10, "updatedAt", "DESC");
       setNotes(data.notes);
     } catch (error) {
       console.error("Error fetching notes:", error);
-      toast.error("Error fetching notes: ", error);
+      toast.error("Error fetching notes.");
     }
   };
-  // Set the active path on the client side when the component mounts
-  useEffect(() => {
-    fetchNotes();
-    setActivePath(window.location.pathname || "/");
-  }, []);
+
+  // Function to categorize notes
+  const categorizeNotes = (notes) => {
+    const today = new Date();
+    const todayStart = new Date(today.setHours(0, 0, 0, 0)).getTime();
+    const sevenDaysAgo = new Date(todayStart - 7 * 24 * 60 * 60 * 1000).getTime();
+    const thirtyDaysAgo = new Date(todayStart - 30 * 24 * 60 * 60 * 1000).getTime();
+
+    const groupedNotes = {
+      today: [],
+      last7Days: [],
+      last30Days: [],
+      byMonth: {},
+    };
+
+    notes.forEach((note) => {
+      const updatedAt = new Date(note.updatedAt).getTime();
+      const monthYear = new Date(note.updatedAt).toISOString().slice(0, 7); // Format: "YYYY-MM"
+
+      if (updatedAt >= todayStart) {
+        groupedNotes.today.push(note);
+      } else if (updatedAt >= sevenDaysAgo) {
+        groupedNotes.last7Days.push(note);
+      } else if (updatedAt >= thirtyDaysAgo) {
+        groupedNotes.last30Days.push(note);
+      } else {
+        if (!groupedNotes.byMonth[monthYear]) {
+          groupedNotes.byMonth[monthYear] = [];
+        }
+        groupedNotes.byMonth[monthYear].push(note);
+      }
+    });
+
+    return groupedNotes;
+  };
+
+  const groupedNotes = categorizeNotes(notes);
+
+  // Toggle group expansion
+  const toggleGroup = (group) => {
+    setExpandedGroups((prev) => ({
+      ...prev,
+      [group]: !prev[group],
+    }));
+  };
+
+  // Toggle month expansion
+  const toggleMonth = (monthYear) => {
+    setExpandedGroups((prev) => ({
+      ...prev,
+      byMonth: {
+        ...prev.byMonth,
+        [monthYear]: !prev.byMonth[monthYear],
+      },
+    }));
+  };
 
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
           <div className="flex flex-row gap-5 items-center mb-4 ml-2">
-            <SquarePen className="w-4 h-4 text-gray-500" />
-            <Search className="w-4 h-4 text-gray-500" />
+            <SquarePen className="w-4 h-4 text-gray-500 hover:text-gray-700 cursor-pointer" />
+            <Search className="w-4 h-4 text-gray-500 hover:text-gray-700 cursor-pointer" />
           </div>
           <SidebarGroupLabel>ម៉ឺនុយកម្មវិធី</SidebarGroupLabel>
           <hr className="border-gray w-full mb-2" />
@@ -100,7 +135,7 @@ export function AppSidebar() {
                       href={item.url}
                       className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-300 ${
                         activePath === item.url
-                          ? "bg-primary70 text-primary font-medium  hover:bg-primary70"
+                          ? "bg-primary70 text-primary font-medium hover:bg-primary70"
                           : "font-medium hover:bg-primary70"
                       }`}
                       onClick={(e) => {
@@ -117,32 +152,164 @@ export function AppSidebar() {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
+
           <SidebarGroupLabel className="mt-5">
             ប្រវិត្តរបស់អ្នក
           </SidebarGroupLabel>
           <hr className="border-gray w-full mb-2" />
+
           <SidebarGroupContent>
             <SidebarMenu>
-              {notes && notes.map((item) => (
-                <SidebarMenuItem key={item.id}>
-                  <SidebarMenuButton asChild>
-                    <a
-                      href={`/notes/${item.id}/transcriptions`}
-                      className="flex flex-row justify-between p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        window.location.href = `/notes/${item.id}/transcriptions`; // Navigate (replace with router if using one)
-                      }}
-                    >
-                      <span className="text-base font-medium truncate w-40 block">
-                        {item.title.length > 20 ? `${item.title.substring(0, 10)}...` : item.title}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        {`${new Date(item.updatedAt).toLocaleDateString()} ${new Date(item.updatedAt).toLocaleTimeString()}`}
-                      </span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+              {/* Today */}
+              {groupedNotes.today.length > 0 && (
+                <>
+                  <div
+                    className="flex items-center justify-between cursor-pointer"
+                    onClick={() => toggleGroup("today")}
+                  >
+                    <SidebarGroupLabel>ថ្ងៃនេះ</SidebarGroupLabel>
+                    {expandedGroups.today ? (
+                      <ChevronUp className="w-4 h-4 text-gray-500" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-gray-500" />
+                    )}
+                  </div>
+                  {expandedGroups.today &&
+                    groupedNotes.today.map((item) => (
+                      <SidebarMenuItem key={item.id}>
+                        <SidebarMenuButton asChild>
+                          <a
+                            href={`/notes/${item.id}/transcriptions`}
+                            className="flex flex-row justify-between p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              window.location.href = `/notes/${item.id}/transcriptions`;
+                            }}
+                          >
+                            <span className="text-base font-medium truncate w-40 block">
+                              {item.title.length > 40
+                                ? `${item.title.substring(0, 30)}...`
+                                : item.title}
+                            </span>
+                          </a>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                </>
+              )}
+
+              {/* Previous 7 Days */}
+              {groupedNotes.last7Days.length > 0 && (
+                <>
+                  <div
+                    className="flex items-center justify-between cursor-pointer"
+                    onClick={() => toggleGroup("last7Days")}
+                  >
+                    <SidebarGroupLabel>7 ថ្ងៃមុន</SidebarGroupLabel>
+                    {expandedGroups.last7Days ? (
+                      <ChevronUp className="w-4 h-4 text-gray-500" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-gray-500" />
+                    )}
+                  </div>
+                  {expandedGroups.last7Days &&
+                    groupedNotes.last7Days.map((item) => (
+                      <SidebarMenuItem key={item.id}>
+                        <SidebarMenuButton asChild>
+                          <a
+                            href={`/notes/${item.id}/transcriptions`}
+                            className="flex flex-row justify-between p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              window.location.href = `/notes/${item.id}/transcriptions`;
+                            }}
+                          >
+                            <span className="text-base font-medium truncate w-50 block">
+                              {item.title.length > 40
+                                ? `${item.title.substring(0, 30)}...`
+                                : item.title}
+                            </span>
+                          </a>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                </>
+              )}
+
+              {/* Previous 30 Days */}
+              {groupedNotes.last30Days.length > 0 && (
+                <>
+                  <div
+                    className="flex items-center justify-between cursor-pointer"
+                    onClick={() => toggleGroup("last30Days")}
+                  >
+                    <SidebarGroupLabel>30 ថ្ងៃមុន</SidebarGroupLabel>
+                    {expandedGroups.last30Days ? (
+                      <ChevronUp className="w-4 h-4 text-gray-500" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-gray-500" />
+                    )}
+                  </div>
+                  {expandedGroups.last30Days &&
+                    groupedNotes.last30Days.map((item) => (
+                      <SidebarMenuItem key={item.id}>
+                        <SidebarMenuButton asChild>
+                          <a
+                            href={`/notes/${item.id}/transcriptions`}
+                            className="flex flex-row justify-between p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              window.location.href = `/notes/${item.id}/transcriptions`;
+                            }}
+                          >
+                            <span className="text-base font-medium truncate w-50 block">
+                              {item.title.length > 40
+                                ? `${item.title.substring(0, 30)}...`
+                                : item.title}
+                            </span>
+                          </a>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                </>
+              )}
+
+              {/* Group by Month */}
+              {Object.keys(groupedNotes.byMonth).map((monthYear) => (
+                <React.Fragment key={monthYear}>
+                  <div
+                    className="flex items-center justify-between cursor-pointer"
+                    onClick={() => toggleMonth(monthYear)}
+                  >
+                    <SidebarGroupLabel>{monthYear}</SidebarGroupLabel>
+                    {expandedGroups.byMonth[monthYear] ? (
+                      <ChevronUp className="w-4 h-4 text-gray-500" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-gray-500" />
+                    )}
+                  </div>
+                  {expandedGroups.byMonth[monthYear] &&
+                    groupedNotes.byMonth[monthYear].map((item) => (
+                      <SidebarMenuItem key={item.id}>
+                        <SidebarMenuButton asChild>
+                          <a
+                            href={`/notes/${item.id}/transcriptions`}
+                            className="flex flex-row justify-between p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              window.location.href = `/notes/${item.id}/transcriptions`;
+                            }}
+                          >
+                            <span className="text-base font-medium truncate w-50 block">
+                              {item.title.length > 40
+                                ? `${item.title.substring(0, 30)}...`
+                                : item.title}
+                            </span>
+                          </a>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                </React.Fragment>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
@@ -151,7 +318,6 @@ export function AppSidebar() {
       <SidebarFooter>
         <LogOut />
       </SidebarFooter>
-      {/* reomove siderbar */}
     </Sidebar>
   );
 }
