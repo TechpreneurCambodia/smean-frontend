@@ -6,18 +6,14 @@ import { AppSidebar } from "@/components/AppSideBar";
 import NavBar from "@/components/NavBar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Tooltip } from "@mui/material";
-import { UserProvider } from "@/contexts/userContext";
 
 export default function Layout({ children }) {
   return (
-    <UserProvider>
-      <SidebarProvider defaultOpen={false}>
-        <SidebarLayout>{children}</SidebarLayout>
-      </SidebarProvider>
-    </UserProvider>
+    <SidebarProvider defaultOpen={false}>
+      <SidebarLayout>{children}</SidebarLayout>
+    </SidebarProvider>
   );
 }
-
 function SidebarLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
