@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // Updated import for useEffect
+import React, { useState, useEffect } from "react"; // Updated import for useEffect
 import {
   Home,
   FolderClosed,
@@ -28,9 +28,10 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import AppSideBarFooter from "./AppSideBarFooter";
-import toast from 'react-hot-toast';
-import { getRecentNotes } from '@/services/api/notes';
-import Layout from './Layout';
+import toast from "react-hot-toast";
+import { getRecentNotes } from "@/services/api/notes";
+import Layout from "./Layout";
+import LogOut from "./LogOut";
 
 // Menu items.
 const items = [
@@ -65,15 +66,15 @@ export function AppSidebar() {
   const [notes, setNotes] = useState(null);
   // State to track the active page, initialized safely on the client side
   const [activePath, setActivePath] = useState("/");
-const fetchNotes = async () => {
-      try {
-        const data = await getRecentNotes(10, 'updatedAt', 'DESC');
-        setNotes(data.notes);
-      } catch (error) {
-        console.error('Error fetching notes:', error);
-        toast.error('Error fetching notes: ', error);
-      }
-    };
+  const fetchNotes = async () => {
+    try {
+      const data = await getRecentNotes(10, "updatedAt", "DESC");
+      setNotes(data.notes);
+    } catch (error) {
+      console.error("Error fetching notes:", error);
+      toast.error("Error fetching notes: ", error);
+    }
+  };
   // Set the active path on the client side when the component mounts
   useEffect(() => {
     fetchNotes();
@@ -99,8 +100,8 @@ const fetchNotes = async () => {
                       href={item.url}
                       className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-300 ${
                         activePath === item.url
-                          ? 'bg-primary70 text-primary font-medium  hover:bg-primary70'
-                          : 'font-medium hover:bg-primary70'
+                          ? "bg-primary70 text-primary font-medium  hover:bg-primary70"
+                          : "font-medium hover:bg-primary70"
                       }`}
                       onClick={(e) => {
                         e.preventDefault();
@@ -116,7 +117,9 @@ const fetchNotes = async () => {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
-          <SidebarGroupLabel className="mt-5">ប្រវិត្តរបស់អ្នក</SidebarGroupLabel>
+          <SidebarGroupLabel className="mt-5">
+            ប្រវិត្តរបស់អ្នក
+          </SidebarGroupLabel>
           <hr className="border-gray w-full mb-2" />
           <SidebarGroupContent>
             <SidebarMenu>
@@ -145,6 +148,9 @@ const fetchNotes = async () => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <LogOut />
+      </SidebarFooter>
       {/* reomove siderbar */}
     </Sidebar>
   );
