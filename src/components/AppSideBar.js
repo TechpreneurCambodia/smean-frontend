@@ -36,7 +36,7 @@ import LogOut from "./LogOut";
 // Menu items.
 const items = [
   {
-    title: "ផ្ទះ",
+    title: "ទំព័រដើម",
     url: "/home",
     icon: Home,
   },
@@ -89,7 +89,7 @@ export function AppSidebar() {
             <SquarePen className="w-4 h-4 text-gray-500" />
             <Search className="w-4 h-4 text-gray-500" />
           </div>
-          <SidebarGroupLabel>ម៉ឺនុយកម្មវិធី</SidebarGroupLabel>
+          <SidebarGroupLabel className="mb-1"> <span className="text-xl text-[#0F172A]">ម៉ឺនុយកម្មវិធី</span>​​</SidebarGroupLabel>
           <hr className="border-gray w-full mb-2" />
           <SidebarGroupContent>
             <SidebarMenu>
@@ -100,8 +100,8 @@ export function AppSidebar() {
                       href={item.url}
                       className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-300 ${
                         activePath === item.url
-                          ? "bg-primary70 text-primary font-medium  hover:bg-primary70"
-                          : "font-medium hover:bg-primary70"
+                          ? 'bg-primary70 text-primary text-md font-medium  hover:bg-primary70'
+                          : 'font-medium hover:bg-primary70'
                       }`}
                       onClick={(e) => {
                         e.preventDefault();
@@ -117,9 +117,7 @@ export function AppSidebar() {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
-          <SidebarGroupLabel className="mt-5">
-            ប្រវិត្តរបស់អ្នក
-          </SidebarGroupLabel>
+          <SidebarGroupLabel className="mt-2 mb-1 "><span className="text-xl text-[#0F172A]">ប្រវត្តិរបស់អ្នក</span></SidebarGroupLabel>
           <hr className="border-gray w-full mb-2" />
           <SidebarGroupContent>
             <SidebarMenu>
