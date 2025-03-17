@@ -18,7 +18,7 @@ export const uploadAudio = async (files, segmentDuration = 180) => {
     formData.append('segmentDuration', segmentDuration);
 
     try {
-        toast.loading('Uploading audio...', { duration: Infinity }); 
+        toast.loading('កំពុងបញ្ចូលអូឌីយ៉ូ...', { duration: Infinity }); 
         const { data } = await axiosInstance.post('/audio/split-and-upload', formData);
         // if (data?.note?.id) { // Extract ID from the 'note' object
         //     router.push(`/audio/${data.note.id}`); // Navigate using the correct ID

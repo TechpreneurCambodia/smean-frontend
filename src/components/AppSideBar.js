@@ -131,7 +131,9 @@ const fetchNotes = async () => {
                         window.location.href = `/notes/${item.id}/transcriptions`; // Navigate (replace with router if using one)
                       }}
                     >
-                      <span className="text-base font-medium">{item.title}</span>
+                      <span className="text-base font-medium truncate w-40 block">
+                        {item.title.length > 20 ? `${item.title.substring(0, 10)}...` : item.title}
+                      </span>
                       <span className="text-xs text-gray-500">
                         {`${new Date(item.updatedAt).toLocaleDateString()} ${new Date(item.updatedAt).toLocaleTimeString()}`}
                       </span>
