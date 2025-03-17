@@ -7,6 +7,7 @@ import { useParams } from 'next/navigation'
 import { convertToTimestamp } from '@/services/utils/convert-to-timestamp';
 import Rename from './details/Rename';
 import PlayBackComponent from '@/components/PlayBackComponent';
+import MinuteOption from '@/components/MinuteOption';
 
 
 const Page = () => {
@@ -50,8 +51,9 @@ const Page = () => {
                 <div className="hidden md:block bg-gray-300 w-1 h-auto"></div>
                 <div className="flex flex-row w-full max-w-2xl gap-5">
                     <div className="w-1 h-screen bg-gray"></div>
-                    <div className="w-full">
+                    <div className="w-full flex flex-col gap-4">
                         <h1 className="text-4xl font-bold">សង្ខេបសម្លេងជាអក្សរ</h1>
+                        <MinuteOption />
                         <div className="w-full flex flex-col gap-4">
                             {transcripts && transcripts.map((transcript) => (
                                 <TranscriptCard
