@@ -3,6 +3,7 @@ import { getNoteTranscriptionDetails } from "@/services/api/notes/details";
 import { useParams } from "next/navigation";
 import { updateNoteTitle } from "@/services/api/notes/update";
 import { Pencil } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function Rename() {
   const params = useParams();
@@ -48,7 +49,7 @@ function Rename() {
       ) : note ? (
         <span>{note.title}</span>
       ) : (
-        <span>Loading...</span>
+        <Skeleton width={100} height={20} />
       )}
       <Pencil
         className="w-5 h-5 text-gray-500 cursor-pointer hover:text-black"

@@ -1,20 +1,13 @@
-// TODO: Update UI
 
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TranscriptCard from "@/components/TranscriptCard";
-import Player from "@/components/Player";
 import Layout from "@/components/Layout";
 import { getNoteTranscriptionDetails } from "@/services/api/notes/details";
 import { useParams } from "next/navigation";
 import { convertToTimestamp } from "@/services/utils/convert-to-timestamp";
-import DateTime from "@/components/DateTime";
-import BackButton from "@/components/BackButton";
-import { Pencil } from "lucide-react";
 import { updateNoteTitle } from "@/services/api/notes/update";
-import { Input } from "@/components/ui/input";
 import Rename from "./Rename";
-import { Tooltip } from '@mui/material';
 
 const Page = () => {
   const params = useParams();
@@ -41,20 +34,13 @@ const Page = () => {
     setIsEditing(false);
   };
 
-  if (!transcripts) {
-    return <Layout>Loading...</Layout>;
-  }
-
   return (
     <Layout>
-      {/* <DateTime />
-            <BackButton /> */}
-
       <div className="container mx-auto px-4 py-8 ">
         <h1 className="text-4xl font-bold mb-8 flex items-center gap-2">
           <Rename />
         </h1>
-       
+
         <div className="flex flex-col gap-6">
 
           {transcripts &&

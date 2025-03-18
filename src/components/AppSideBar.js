@@ -76,7 +76,6 @@ export function AppSidebar() {
       setNotes(data.notes);
     } catch (error) {
       console.error("Error fetching notes:", error);
-      toast.error("Error fetching notes.");
     }
   };
 

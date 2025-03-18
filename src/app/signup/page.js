@@ -9,7 +9,7 @@ import { registerUser } from "@/services/api/auth";
 import toast from "react-hot-toast";
 import { humanize } from "@/services/utils/humanize";
 import PublicRoute from "@/components/PublicRoute";
-import { useUser } from "@/contexts/userContext";
+import { useUser } from "@/hooks/UserContext";
 
 export default function Page() {
   const router = useRouter();

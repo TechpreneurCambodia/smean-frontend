@@ -1,10 +1,9 @@
 "use client";
 import { useState } from 'react';
-import { Tooltip } from '@mui/material';
 import TimeAndRecorder from '../../components/TimeAndRecorder';
 import Layout from '@/components/Layout';
 import MinuteOption from '@/components/MinuteOption';
-import { FileTextIcon, Text, TextIcon } from 'lucide-react';
+import { FileTextIcon } from 'lucide-react';
 
 function Page() {
     const [recordingTitle, setRecordingTitle] = useState('');
