@@ -1,7 +1,6 @@
-import axios from 'axios';
-import { eraseCookie, setCookie, getCookie } from '../utils/cookies';
-import axiosInstance from '../axiosInstance';
-
+import axios from "axios";
+import axiosInstance from "../axiosInstance";
+import { setCookie, eraseCookie, getCookie } from "../utils/cookies";
 // Login function
 export const loginUser = async ({ usernameOrEmail, password }) => {
     try {
@@ -11,8 +10,9 @@ export const loginUser = async ({ usernameOrEmail, password }) => {
         setCookie('refresh_token', data.refresh_token, maxAge + 1);
         return data;
     } catch (error) {
-        console.log("error: ", error);
-        throw error.response?.data?.message || 'Login failed';
+        console.error("Login error: ", error);
+        const message = error.response?.data?.message || "Login failed. Please try again.";
+        throw new Error(message);
     }
 };
 // Register function
@@ -24,22 +24,28 @@ export const registerUser = async ({ firstName, lastName, email, username, passw
         setCookie('refresh_token', data.refresh_token, maxAge + 1);
         return data;
     } catch (error) {
-        throw error.response?.data?.message || 'Register failed';
+        console.error("Registration error: ", error);
+        const message = error.response?.data?.message || "Registration failed. Please try again.";
+        throw new Error(message);
     }
 };
-// Logout function
 export const logoutUser = async () => {
     try {
+        const refresh_token = getCookie("refresh_token");
         const token = getCookie('access_token');
 
-        await axiosInstance.post('/auth/logout', { refreshToken: getCookie('refresh_token') });
+        if (!refresh_token) {
+            throw new Error("No refresh token found. Please log in again.");
+        }
 
+        await axiosInstance.post("/auth/logout", {
+            refreshToken: refresh_token,
+        });
 
-        eraseCookie('access_token');
-        eraseCookie('refresh_token');
-        window.location.href = '/login';
+        eraseCookie("access_token");
+        eraseCookie("refresh_token");
     } catch (error) {
-        console.error('Logout error:', error);
-        toast.error(humanize(error.message));
+        console.error("Logout error:", error);
+        toast.error("Logout failed. Please try again.");
     }
 };

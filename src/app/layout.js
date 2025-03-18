@@ -1,7 +1,9 @@
 import { Kantumruy_Pro } from "next/font/google";
-import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import { UserProvider } from "@/contexts/userContext";
+import { UserProvider } from "@/hooks/UserContext"; // Import UserProvider
+import "./globals.css";
+import { Suspense } from "react";
+import Loading from "@/components/Loading";
 
 const kantumruyPro = Kantumruy_Pro({
   variable: "--font-body",
@@ -19,7 +21,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${kantumruyPro.variable} antialiased`}>
         <UserProvider>
-          {children}
+          <Suspense fallback={<Loading />}>
+            {children}
+          </Suspense>
         </UserProvider>
         <Toaster position="top-right" reverseOrder={false} />
       </body>
