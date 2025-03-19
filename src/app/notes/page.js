@@ -11,7 +11,7 @@ function DeleteConfirmationModal({ isOpen, onConfirm, onCancel }) {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-80">
+      <div className="bg-background rounded-lg shadow-lg p-6 w-80">
         <h2 className="text-xl font-bold mb-4">បញ្ជាក់ការលុប</h2>
         <p className="mb-6">តើអ្នកប្រាកដជាចង់លុបកំណត់ត្រានេះពិតមែនដែរឬទេ?</p>
         <div className="flex justify-end">

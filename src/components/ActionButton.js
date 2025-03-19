@@ -6,7 +6,7 @@ function ActionButton() {
   const router = useRouter();
   
   const baseButton =
-    "btn bg-white flex items-center justify-center rounded-full border p-6 text-primary text-base font-normal shadow transition hover:bg-opacity-10";
+    "btn bg-background flex items-center justify-center rounded-full border p-6 text-primary text-base font-normal shadow transition hover:bg-opacity-10";
 
   return (
     <div className="flex flex-col items-center gap-6">

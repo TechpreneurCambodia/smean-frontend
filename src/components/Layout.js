@@ -40,12 +40,12 @@ function SidebarLayout({ children }) {
       <div className="w-full bg-base-100">
         <NavBar isSidebarOpen={isSidebarOpen} />
       </div>
-      <div className="flex flex-grow bg-base-100">
+      <div className="w-full flex flex-grow bg-base-100">
         <AppSidebar isOpen={isSidebarOpen} />
         <div className="flex flex-col flex-grow px-4 sm:px-6 md:px-12 lg:px-24 overflow-auto relative">
           <Tooltip title="បើក/បិទសឺមី" arrow>
             <SidebarTrigger
-              className="absolute top-4 left-4 z-50 p-2 bg-white rounded-full shadow-md transform translate-x-0 transition-transform duration-300 ease-in-out hover:translate-x-1"
+              className="absolute top-4 left-4 z-50 p-2 bg-background rounded-full shadow-md transform translate-x-0 transition-transform duration-300 ease-in-out hover:translate-x-1"
               onClick={handleSidebarToggle}
             />
           </Tooltip>

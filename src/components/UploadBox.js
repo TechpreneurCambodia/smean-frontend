@@ -103,7 +103,7 @@ function UploadBox({ onFilesSelected }) {
 
     return (
         <div 
-            className={`border-2 border-dashed border-sky-400 rounded-lg sm:mx-8 md:mx-0 my-4 p-6 w-full max-w-4xl mx-auto ${isDragging ? 'bg-sky-100' : 'bg-white'} transition-colors duration-300 hover:shadow-md`}
+            className={`border-2 border-dashed border-sky-400 rounded-lg sm:mx-8 md:mx-0 my-4 p-6 w-full max-w-4xl mx-auto ${isDragging ? 'bg-sky-100' : 'bg-background'} transition-colors duration-300 hover:shadow-md`}
             onDrop={onDrop}
             onDragOver={onDragOver}
             onDragLeave={onDragLeave}
@@ -190,7 +190,7 @@ function UploadBox({ onFilesSelected }) {
             {/* File Preview Modal */}
             {isPreviewOpen && selectedFile && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white p-6 rounded-lg max-w-md w-full">
+                    <div className="bg-background p-6 rounded-lg max-w-md w-full">
                         <h2 className="text-lg font-bold mb-4">
                             ការមើលឯកសារជាមុន: {selectedFile.name}
                         </h2>

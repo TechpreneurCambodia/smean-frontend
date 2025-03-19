@@ -13,23 +13,12 @@ function Page() {
         fetchUserInfo();
     }, []);
     return (
-        <Layout>
-            <div className="flex w-full h-full items-center justify-center bg-base-100 text-center z-1">
-                <div className="flex flex-col items-center gap-8">
-                    {user ? (
-                        <>
-                            <Welcome username={user ? user.firstName : "Guest"} />
-                            <ActionButton />
-                        </>
-                    ) : (
-                        <>
-                            <Skeleton variant="text" width={200} height={100} />
-                            <Skeleton variant="text" width={200} height={100} />
-                            <Skeleton variant="text" width={200} height={100} />
-                        </>
-                    )}
-
-                </div>
+        <div className="flex items-center justify-center h-screen">
+            <div className="p-6 rounded-lg shadow-lg w-96">
+                <p>Landing page</p>
+                <a href="/login">Login</a>
+                <br></br>
+                <a href="/signup">Signup</a>
             </div>
         </Layout>
     );

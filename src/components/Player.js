@@ -64,11 +64,11 @@ function Player() {
           </svg>
         </svg>
         <div
-          className="absolute z-10 w-8 h-8 bg-white border-4 rounded-full shadow-sm border-zinc-400 top-12 left-12"
+          className="absolute z-10 w-8 h-8 bg-background border-4 rounded-full shadow-sm border-zinc-400 top-12 left-12"
         ></div>
       </div>
       <div
-        className="z-30 flex flex-col w-40 h-20 transition-all duration-300 bg-white shadow-md group-hover/he:h-40 group-hover/he:w-72 rounded-2xl shadow-zinc-400"
+        className="z-30 flex flex-col w-40 h-20 transition-all duration-300 bg-background shadow-md group-hover/he:h-40 group-hover/he:w-72 rounded-2xl shadow-zinc-400"
       >
         <div className="flex flex-row w-full h-0 group-hover/he:h-20">
           <div
@@ -129,7 +129,7 @@ function Player() {
               </svg>
             </svg>
             <div
-              className="absolute z-10 w-6 h-6 bg-white border-4 rounded-full shadow-sm border-zinc-400 top-9 left-9"
+              className="absolute z-10 w-6 h-6 bg-background border-4 rounded-full shadow-sm border-zinc-400 top-9 left-9"
             ></div>
           </div>
           <div
@@ -153,7 +153,7 @@ function Player() {
             max="100"
             value={progress}
             onChange={handleProgressChange}
-            className="w-24 group-hover/he:w-full flex-grow h-1 mx-2 my-auto bg-gray-300 rounded-full appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-zinc-400 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md"
+            className="w-24 group-hover/he:w-full flex-grow h-1 mx-2 my-auto bg-gray-300 rounded-full appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-background [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-zinc-400 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md"
           />
           <span
             className="hidden pr-3 text-sm text-zinc-600 group-hover/he:inline-block"

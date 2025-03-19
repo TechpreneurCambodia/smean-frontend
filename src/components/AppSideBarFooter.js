@@ -2,12 +2,7 @@ import React from 'react';
 import { Home, FolderClosed, CirclePlus, Search, Settings, User2, ChevronUp } from "lucide-react";
 
 import {
-  Sidebar,
-  SidebarContent,
   SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,

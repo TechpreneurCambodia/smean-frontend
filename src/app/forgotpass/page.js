@@ -5,7 +5,7 @@ import Button from "@/components/Button";
 export default function Page() {
   return (
     <div className="flex items-center justify-center h-screen bg-gray-200">
-    <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+    <div className=" p-6 rounded-lg shadow-lg w-96">
       <h2 className="text-left text-2xl font-bold text-darkGray">
         Forget Password
       </h2>

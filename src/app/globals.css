@@ -6,10 +6,16 @@ body {
   font-family: var(--font-body), sans-serif; /* Use the Next.js font variable */
   @apply text-base;
 }
-
 @layer base {
-  :root {
-    --background: 0 0% 100%;
+
+
+}
+
+[data-theme="light"] {
+    --base: #fff;
+    --primary: #0D6074;
+    --secondary: #769da8;
+    --background: #0D6074;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
@@ -33,18 +39,21 @@ body {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
-  ;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%
-  }
-  .dark {
+    --radius: 0.5rem;
+
+    --sidebar-background: #FAFAFA;  /* Light gray */
+    --sidebar-foreground: #40434D;  /* Dark grayish blue */
+    --sidebar-primary: #191A1E;      /* Very dark blue-gray */
+    --sidebar-primary-foreground: #FAFAFA;  /* Light gray */
+    --sidebar-accent: #F2F2F5;       /* Very light gray */
+    --sidebar-accent-foreground: #191A1E;  /* Very dark blue-gray */
+    --sidebar-border: #D3DAE3;       /* Light bluish gray */
+    --sidebar-ring: #299DFF;   
+}
+[data-theme="dark"] {
+    --base: #1A1A1A;
+    --primary: #0D6074;
+    --secondary: #769da8;
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
     --card: 0 0% 3.9%;
@@ -69,25 +78,19 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%
-  ;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%}
+
+    
+  --sidebar-background: #191A1E;
+  --sidebar-foreground: #F2F2F5;
+  --sidebar-primary: #2362D1;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #24262B;
+  --sidebar-accent-foreground: #F2F2F5;
+  --sidebar-border: #24262B;
+  --sidebar-ring: #299DFF;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
+
 /* This is for hide the NextJS Error */
 /* nextjs-portal {
   display: none;
@@ -96,4 +99,6 @@ body {
 body {
   padding: 0 !important; 
   overflow: auto !important;
+  background-color: var(--base);
+  
 }

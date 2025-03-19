@@ -1,6 +1,7 @@
 import { useUser } from '@/hooks/UserContext';
 import React, { use, useEffect } from 'react';
 import { useState } from "react";
+import ThemeToggle from './ThemeToggle';
 
 function NavBar({ isSidebarOpen }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +10,7 @@ function NavBar({ isSidebarOpen }) {
     fetchUserInfo();
   }, []);
   return (
-    <div className="navbar pl-[32px] bg-white m-x-[20px] w-full sticky">
+    <div className="navbar pl-[32px] bg-background m-x-[20px] w-full sticky">
       <div
         className={`flex-1 flex items-center gap-5 ${isSidebarOpen ? 'pl-64' : 'pl-0'
           } transition-padding duration-300 ease-in-out`}
@@ -42,7 +43,7 @@ function NavBar({ isSidebarOpen }) {
               {/* </div> */}
               {/* <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content bg-white rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                className="menu menu-sm dropdown-content bg-background rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>
                   <a className="justify-between">

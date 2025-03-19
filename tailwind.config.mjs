@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config, import ('daisyui').daisyui} */
 export default {
-    darkMode: ['class'],
     content: [
         './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
         './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -13,31 +12,16 @@ export default {
                 body: ['Poppins', 'sans-serif'],
                 heading: ['Poppins', 'sans-serif'],
             },
-            fontSize: {
-                sm: '0.875rem',
-                base: '1rem',
-                lg: '1.125rem',
-                xl: '1.25rem',
-                '2xl': '1.5rem',
-                '3xl': '1.875rem',
-            },
             colors: {
+                primary: 'var(--primary)',
+                secondary: 'var(--secondary)',
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',
-                primaryText: '#A3E1FA',
-                primaryTextGray: '#64748B',
                 primary: {
                     DEFAULT: '#0D6074',
                     foreground: 'hsl(var(--primary-foreground))',
                 },
-                white: '#FFFFFF',
-                gray: '#DEDEDE',
-                black70: 'rgba(0, 0, 0, 0.7)',
-                darkGray: '#4A4A4A',
-                primary70: '#C5D5D9',
-                secondary70: '#769da8',
-                cyan: '#c8d4d8',
-                black: '#000000',
+                
                 card: {
                     DEFAULT: 'hsl(var(--card))',
                     foreground: 'hsl(var(--card-foreground))',
@@ -73,16 +57,16 @@ export default {
                     5: 'hsl(var(--chart-5))',
                 },
                 sidebar: {
-                    DEFAULT: 'hsl(var(--sidebar-background))',
-                    foreground: 'hsl(var(--sidebar-foreground))',
-                    primary: 'hsl(var(--sidebar-primary))',
+                    DEFAULT: 'var(--sidebar-background)',
+                    foreground: 'var(--sidebar-foreground)',
+                    primary: 'var(--sidebar-primary)',
                     'primary-foreground':
-                        'hsl(var(--sidebar-primary-foreground))',
-                    accent: 'hsl(var(--sidebar-accent))',
+                        'var(--sidebar-primary-foreground)',
+                    accent: 'var(--sidebar-accent)',
                     'accent-foreground':
-                        'hsl(var(--sidebar-accent-foreground))',
-                    border: 'hsl(var(--sidebar-border))',
-                    ring: 'hsl(var(--sidebar-ring))',
+                        'var(--sidebar-accent-foreground)',
+                    border: 'var(--sidebar-border)',
+                    ring: 'var(--sidebar-ring)',
                 },
             },
             borderRadius: {
@@ -94,4 +78,5 @@ export default {
     },
 
     plugins: [require('daisyui'), require('tailwindcss-animate')],
+    
 };

@@ -16,7 +16,7 @@ export default function page() {
                         <Plus color="#2b5f72" />
                         បង្កើតថ្មី
                     </div>
-                    <div className='flex flex-row items-center border border-black bg-white p-2 px-4 rounded-3xl text-black gap-2'>
+                    <div className='flex flex-row items-center border border-black p-2 px-4 rounded-3xl text-black gap-2'>
                         <Filter />
                         តម្រៀបដោយ: ចុងក្រោយបំផុត
                     </div>

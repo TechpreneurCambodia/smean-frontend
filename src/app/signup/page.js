@@ -35,8 +35,8 @@ export default function Page() {
 
   return (
     <PublicRoute>
-      <div className="flex items-center justify-center h-screen bg-gray-200">
-        <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+      <div className="flex items-center justify-center h-screen bg-background">
+        <div className="bg-background p-6 rounded-lg shadow-lg w-96">
           <h2 className="text-center text-2xl font-bold mb-4 text-darkGray">Sign Up</h2>
           <form onSubmit={handleRegister}>
             <div className="mt-4">

@@ -12,7 +12,7 @@ const InputField = ({ type, placeholder, name, value, onChange ,...props}) => {
       value={value}
       onChange={onChange}
       {...props}
-      className="input input-bordered border border-primary w-full bg-white text-black"
+      className="input input-bordered border border-primary w-full bg-background text-black"
     />
     </>
   );
