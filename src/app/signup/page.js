@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { humanize } from "@/services/utils/humanize";
 import PublicRoute from "@/components/PublicRoute";
 import { useUser } from "@/hooks/UserContext";
+import { stringifyError } from "next/dist/shared/lib/utils";
 
 export default function Page() {
   const router = useRouter();
@@ -27,7 +28,8 @@ export default function Page() {
       router.push('/home');
       toast.success("Registration successful!");
     } catch (error) {
-      toast.error(humanize(error));
+      toast.error(humanize(error.message));
+
     }
   };
 

@@ -24,7 +24,7 @@ export const registerUser = async ({ firstName, lastName, email, username, passw
         setCookie('refresh_token', data.refresh_token, maxAge + 1);
         return data;
     } catch (error) {
-        console.error("Registration error: ", error);
+        console.error("Registration error: ", error.response.data.message);
         const message = error.response?.data?.message || "Registration failed. Please try again.";
         throw new Error(message);
     }
