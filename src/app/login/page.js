@@ -33,6 +33,14 @@ export default function Page() {
     }
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
+  };
+
+  const handleFacebookLogin = () => {
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/facebook`;
+  };
+
   return (
     <PublicRoute>
       <div className="flex items-center justify-center h-screen bg-gray-200">
@@ -67,7 +75,8 @@ export default function Page() {
             </div>
           </form>
           <div className="divider text-black color-black">OR</div>
-          <SocialLogin />
+          <SocialLogin onClickGoogle={handleGoogleLogin} onClickFacebook={handleFacebookLogin}/>
+ 
           <p className="text-center text-sm mt-4 text-black">
             Don't have an account?{" "}
             <Link href="/signup">

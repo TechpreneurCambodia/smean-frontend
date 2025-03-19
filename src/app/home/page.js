@@ -5,10 +5,13 @@ import Welcome from "./Welcome";
 import Layout from "@/components/Layout";
 import { useUser } from "@/hooks/UserContext";
 import { Skeleton } from "@mui/material";
+import { useEffect } from "react";
 
 function Page() {
-    const { user } = useUser();
-
+    const { user, fetchUserInfo } = useUser();
+    useEffect(() => {
+        fetchUserInfo();
+    }, []);
     return (
         <Layout>
             <div className="flex w-full h-full items-center justify-center bg-base-100 text-center z-1">
