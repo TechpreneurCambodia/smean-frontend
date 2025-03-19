@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSideBar";
 import NavBar from "@/components/NavBar";
@@ -9,16 +9,28 @@ import { Tooltip } from "@mui/material";
 
 export default function Layout({ children }) {
   return (
-    <SidebarProvider defaultOpen={false}>
+    <SidebarProvider defaultOpen={true}>
       <SidebarLayout>{children}</SidebarLayout>
     </SidebarProvider>
   );
 }
 function SidebarLayout({ children }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+
+  useEffect(() => {
+    // Keep sidebar state persistent by storing in localStorage
+    const savedState = localStorage.getItem("sidebarState");
+    if (savedState !== null) {
+      setIsSidebarOpen(JSON.parse(savedState));
+    }
+  }, []);
 
   const handleSidebarToggle = () => {
-    setIsSidebarOpen((prev) => !prev);
+    setIsSidebarOpen((prev) => {
+      localStorage.setItem("sidebarState", JSON.stringify(!prev)); // Save state
+      return !prev;
+    });
   };
 
   return (
