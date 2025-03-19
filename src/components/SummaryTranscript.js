@@ -11,7 +11,7 @@ function SummaryTranscript() {
     <div>
       <section className="border-t p-4 flex justify-center">
         <div className="w-full max-w-md">
-          <h2 className="font-bold text-[36px]">សង្ខេបសម្លេងជាអក្សរ</h2>
+          <h2 className="font-bold text-[36px]">សង្ខេបសំឡេងជាអក្សរ</h2>
           <div className="mt-4 space-y-4">
             {[...Array(2)].map((_, i) => (
               <div key={i} className="p-4 bg-gray-100 border-l-4 border-gray-500 rounded-md">

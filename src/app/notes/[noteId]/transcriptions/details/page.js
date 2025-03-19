@@ -37,12 +37,10 @@ const Page = () => {
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8 ">
-        <h1 className="text-4xl font-bold mb-8 flex items-center gap-2">
+        <div className="text-4xl font-bold mb-8 flex items-center gap-2">
           <Rename />
-        </h1>
-
+        </div>
         <div className="flex flex-col gap-6">
-
           {transcripts &&
             transcripts.map((transcript) => (
               <TranscriptCard

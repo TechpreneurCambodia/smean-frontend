@@ -149,14 +149,14 @@ const TimeAndRecorder = ({ title = 'recording', minutes = 1 }) => {
 
       <div className="flex gap-2">
         {!recording ? (
-          <button onClick={handleStartRecording} className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400">
-            <Tooltip title="ចុចថតសម្លេង" arrow>
+          <button onClick={handleStartRecording} className="w-10 mr-4 h-10 flex items-center justify-center rounded-full border border-gray-400">
+            <Tooltip title="ចុចថតសំឡេង" arrow>
               <Mic className="text-gray-500 w-6 h-6" />
             </Tooltip>
           </button>
         ) : paused ? (
           <button onClick={handleResumeRecording} className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400">
-            <Tooltip title="ចុចថតសម្លេង" arrow>
+            <Tooltip title="ចុចថតសំឡេង" arrow>
               <Mic className="text-green-500 w-6 h-6" />
             </Tooltip>
           </button>
