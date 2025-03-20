@@ -6,6 +6,7 @@ import Layout from "@/components/Layout";
 import { useUser } from "@/hooks/UserContext";
 import { Skeleton } from "@mui/material";
 import { useEffect } from "react";
+import { SkeletonLoading } from "./Skeleton";
 
 function Page() {
     const { user, fetchUserInfo } = useUser();
@@ -23,9 +24,13 @@ function Page() {
                         </>
                     ) : (
                         <>
-                            <Skeleton variant="text" width={200} height={100} />
-                            <Skeleton variant="text" width={200} height={100} />
-                            <Skeleton variant="text" width={200} height={100} />
+                            <SkeletonLoading />
+                            <Skeleton variant="text" width={400} height={70} />
+                            <Skeleton variant="text" width={300} height={40} />
+                            <div className="w-1/3 flex justify-center space-x-4">
+                                <Skeleton variant="button" width={300} height={50} />
+                                <Skeleton variant="button" width={300} height={50} />
+                            </div>
                         </>
                     )}
 

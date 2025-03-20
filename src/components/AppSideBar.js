@@ -26,6 +26,8 @@ import {
 import toast from "react-hot-toast";
 import { getRecentNotes } from "@/services/api/notes";
 import LogOut from "./LogOut";
+import { Skeleton } from "@mui/material";
+import SideBarNoteSkeleton from "./Skeletons/SideBarNoteSkeleton";
 
 const items = [
   {
@@ -33,11 +35,11 @@ const items = [
     url: "/home",
     icon: Home,
   },
-  {
-    title: "សឺមីឯកសារ",
-    url: "/folder",
-    icon: FolderClosed,
-  },
+  // {
+  //   title: "សឺមីឯកសារ",
+  //   url: "/folder",
+  //   icon: FolderClosed,
+  // },
   {
     title: "កំណត់ត្រា",
     url: "/notes",
@@ -152,11 +154,10 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <a
                       href={item.url}
-                      className={`flex items-center gap-3 py-6 text-xl rounded-lg transition-all duration-300 ${
-                        activePath === item.url
-                          ? 'bg-gray text-primary text-xl font-medium  hover:bg-gray hover:text-primary text-gray-600'
-                          : 'font-medium hover:bg-gray hover:text-primary text-gray-600'
-                      }`}
+                      className={`flex items-center gap-3 py-6 text-xl rounded-lg transition-all duration-300 ${activePath === item.url
+                        ? 'bg-gray text-primary text-xl font-medium  hover:bg-gray hover:text-primary text-gray-600'
+                        : 'font-medium hover:bg-gray hover:text-primary text-gray-600'
+                        }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setActivePath(item.url);
@@ -171,164 +172,168 @@ export function AppSidebar() {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
-          <SidebarGroupLabel className="mt-2 mb-2 "><span className="text-2xl text-primary">ប្រវត្តិរបស់អ្នក</span></SidebarGroupLabel>
-          <hr className="border-gray w-full mb-2" />
+          <hr className="border-gray w-full my-4" />
+          {groupedNotes && Object.keys(groupedNotes).length !== 0 ?  (
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {/* Today */}
+                {groupedNotes.today.length > 0 && (
+                  <>
+                    <div
+                      className="flex items-center justify-between cursor-pointer"
+                      onClick={() => toggleGroup("today")}
+                    >
+                      <SidebarGroupLabel><h2 className="text-lg font-medium">ថ្ងៃនេះ</h2></SidebarGroupLabel>
+                      {expandedGroups.today ? (
+                        <ChevronUp className="w-4 h-4 text-gray-500" />
+                      ) : (
+                        <ChevronDown className="w-4 h-4 text-gray-500" />
+                      )}
+                    </div>
+                    {expandedGroups.today &&
+                      groupedNotes.today.map((item) => (
+                        <SidebarMenuItem key={item.id}>
+                          <SidebarMenuButton asChild>
+                            <a
+                              href={`/notes/${item.id}/transcriptions`}
+                              className="flex flex-row justify-between p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                window.location.href = `/notes/${item.id}/transcriptions`;
+                              }}
+                            >
+                              <p className="text-lg font-medium truncate w-40 block">
+                                {item.title.length > 40
+                                  ? `${item.title.substring(0, 30)}...`
+                                  : item.title}
+                              </p>
+                            </a>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                  </>
+                )}
 
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {/* Today */}
-              {groupedNotes.today.length > 0 && (
-                <>
-                  <div
-                    className="flex items-center justify-between cursor-pointer"
-                    onClick={() => toggleGroup("today")}
-                  >
-                    <SidebarGroupLabel>ថ្ងៃនេះ</SidebarGroupLabel>
-                    {expandedGroups.today ? (
-                      <ChevronUp className="w-4 h-4 text-gray-500" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-gray-500" />
-                    )}
-                  </div>
-                  {expandedGroups.today &&
-                    groupedNotes.today.map((item) => (
-                      <SidebarMenuItem key={item.id}>
-                        <SidebarMenuButton asChild>
-                          <a
-                            href={`/notes/${item.id}/transcriptions`}
-                            className="flex flex-row justify-between p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              window.location.href = `/notes/${item.id}/transcriptions`;
-                            }}
-                          >
-                            <span className="text-base font-medium truncate w-40 block">
-                              {item.title.length > 40
-                                ? `${item.title.substring(0, 30)}...`
-                                : item.title}
-                            </span>
-                          </a>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                </>
-              )}
+                {/* Previous 7 Days */}
+                {groupedNotes.last7Days.length > 0 && (
+                  <>
+                    <div
+                      className="flex items-center justify-between cursor-pointer mt-6"
+                      onClick={() => toggleGroup("last7Days")}
+                    >
+                      <SidebarGroupLabel><h2 className="text-lg font-medium">7 ថ្ងៃមុន</h2></SidebarGroupLabel>
+                      {expandedGroups.last7Days ? (
+                        <ChevronUp className="w-4 h-4 text-gray-500" />
+                      ) : (
+                        <ChevronDown className="w-4 h-4 text-gray-500" />
+                      )}
+                    </div>
+                    {expandedGroups.last7Days &&
+                      groupedNotes.last7Days.map((item) => (
+                        <SidebarMenuItem key={item.id}>
+                          <SidebarMenuButton asChild>
+                            <a
+                              href={`/notes/${item.id}/transcriptions`}
+                              className="flex flex-row justify-between p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                window.location.href = `/notes/${item.id}/transcriptions`;
+                              }}
+                            >
+                              <span className="text-lg font-medium truncate w-50 block">
+                                {item.title.length > 40
+                                  ? `${item.title.substring(0, 30)}...`
+                                  : item.title}
+                              </span>
+                            </a>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                  </>
+                )}
 
-              {/* Previous 7 Days */}
-              {groupedNotes.last7Days.length > 0 && (
-                <>
-                  <div
-                    className="flex items-center justify-between cursor-pointer"
-                    onClick={() => toggleGroup("last7Days")}
-                  >
-                    <SidebarGroupLabel>7 ថ្ងៃមុន</SidebarGroupLabel>
-                    {expandedGroups.last7Days ? (
-                      <ChevronUp className="w-4 h-4 text-gray-500" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-gray-500" />
-                    )}
-                  </div>
-                  {expandedGroups.last7Days &&
-                    groupedNotes.last7Days.map((item) => (
-                      <SidebarMenuItem key={item.id}>
-                        <SidebarMenuButton asChild>
-                          <a
-                            href={`/notes/${item.id}/transcriptions`}
-                            className="flex flex-row justify-between p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              window.location.href = `/notes/${item.id}/transcriptions`;
-                            }}
-                          >
-                            <span className="text-base font-medium truncate w-50 block">
-                              {item.title.length > 40
-                                ? `${item.title.substring(0, 30)}...`
-                                : item.title}
-                            </span>
-                          </a>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                </>
-              )}
+                {/* Previous 30 Days */}
+                {groupedNotes.last30Days.length > 0 && (
+                  <>
+                    <div
+                      className="flex items-center justify-between cursor-pointer"
+                      onClick={() => toggleGroup("last30Days")}
+                    >
+                      <SidebarGroupLabel><h2 className="text-lg font-medium">30 ថ្ងៃមុន</h2></SidebarGroupLabel>
+                      {expandedGroups.last30Days ? (
+                        <ChevronUp className="w-4 h-4 text-gray-500" />
+                      ) : (
+                        <ChevronDown className="w-4 h-4 text-gray-500" />
+                      )}
+                    </div>
+                    {expandedGroups.last30Days &&
+                      groupedNotes.last30Days.map((item) => (
+                        <SidebarMenuItem key={item.id}>
+                          <SidebarMenuButton asChild>
+                            <a
+                              href={`/notes/${item.id}/transcriptions`}
+                              className="flex flex-row justify-between p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                window.location.href = `/notes/${item.id}/transcriptions`;
+                              }}
+                            >
+                              <span className="text-base font-medium truncate w-50 block">
+                                {item.title.length > 40
+                                  ? `${item.title.substring(0, 30)}...`
+                                  : item.title}
+                              </span>
+                            </a>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                  </>
+                )}
 
-              {/* Previous 30 Days */}
-              {groupedNotes.last30Days.length > 0 && (
-                <>
-                  <div
-                    className="flex items-center justify-between cursor-pointer"
-                    onClick={() => toggleGroup("last30Days")}
-                  >
-                    <SidebarGroupLabel>30 ថ្ងៃមុន</SidebarGroupLabel>
-                    {expandedGroups.last30Days ? (
-                      <ChevronUp className="w-4 h-4 text-gray-500" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-gray-500" />
-                    )}
-                  </div>
-                  {expandedGroups.last30Days &&
-                    groupedNotes.last30Days.map((item) => (
-                      <SidebarMenuItem key={item.id}>
-                        <SidebarMenuButton asChild>
-                          <a
-                            href={`/notes/${item.id}/transcriptions`}
-                            className="flex flex-row justify-between p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              window.location.href = `/notes/${item.id}/transcriptions`;
-                            }}
-                          >
-                            <span className="text-base font-medium truncate w-50 block">
-                              {item.title.length > 40
-                                ? `${item.title.substring(0, 30)}...`
-                                : item.title}
-                            </span>
-                          </a>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                </>
-              )}
+                {/* Group by Month */}
+                {Object.keys(groupedNotes.byMonth).map((monthYear) => (
+                  <React.Fragment key={monthYear}>
+                    <div
+                      className="flex items-center justify-between cursor-pointer"
+                      onClick={() => toggleMonth(monthYear)}
+                    >
+                      <SidebarGroupLabel>{monthYear}</SidebarGroupLabel>
+                      {expandedGroups.byMonth[monthYear] ? (
+                        <ChevronUp className="w-4 h-4 text-gray-500" />
+                      ) : (
+                        <ChevronDown className="w-4 h-4 text-gray-500" />
+                      )}
+                    </div>
+                    {expandedGroups.byMonth[monthYear] &&
+                      groupedNotes.byMonth[monthYear].map((item) => (
+                        <SidebarMenuItem key={item.id}>
+                          <SidebarMenuButton asChild>
+                            <a
+                              href={`/notes/${item.id}/transcriptions`}
+                              className="flex flex-row justify-between p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                window.location.href = `/notes/${item.id}/transcriptions`;
+                              }}
+                            >
+                              <span className="text-lg font-medium truncate w-50 block">
+                                {item.title.length > 40
+                                  ? `${item.title.substring(0, 30)}...`
+                                  : item.title}
+                              </span>
+                            </a>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                  </React.Fragment>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
 
-              {/* Group by Month */}
-              {Object.keys(groupedNotes.byMonth).map((monthYear) => (
-                <React.Fragment key={monthYear}>
-                  <div
-                    className="flex items-center justify-between cursor-pointer"
-                    onClick={() => toggleMonth(monthYear)}
-                  >
-                    <SidebarGroupLabel>{monthYear}</SidebarGroupLabel>
-                    {expandedGroups.byMonth[monthYear] ? (
-                      <ChevronUp className="w-4 h-4 text-gray-500" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-gray-500" />
-                    )}
-                  </div>
-                  {expandedGroups.byMonth[monthYear] &&
-                    groupedNotes.byMonth[monthYear].map((item) => (
-                      <SidebarMenuItem key={item.id}>
-                        <SidebarMenuButton asChild>
-                          <a
-                            href={`/notes/${item.id}/transcriptions`}
-                            className="flex flex-row justify-between p-2 text-gray-600 hover:bg-smean-blue/20 hover:text-smean-blue rounded-lg transition-all duration-300"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              window.location.href = `/notes/${item.id}/transcriptions`;
-                            }}
-                          >
-                            <span className="text-base font-medium truncate w-50 block">
-                              {item.title.length > 40
-                                ? `${item.title.substring(0, 30)}...`
-                                : item.title}
-                            </span>
-                          </a>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                </React.Fragment>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
+          ) : (
+            <SideBarNoteSkeleton />
+          )}
+
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>

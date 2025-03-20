@@ -47,7 +47,7 @@ function Rename() {
         />
       ) : note ? (
         <>
-          <span>{note.title}</span>
+          <span className="truncate max-w-md">{note.title}</span>
           <Pencil
             className="w-5 h-5 text-gray-500 cursor-pointer hover:text-black"
             onClick={() => setIsEditing(true)}

@@ -1,44 +1,36 @@
+import React from 'react';
 
 const NoteListSkeleton = () => {
-    return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Skeleton Card 1 */}
-            <div className="card w-96 bg-gray-100 shadow-xl animate-pulse">
-                <div className="card-body">
-                    <div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-                    <div className="h-4 bg-gray-300 rounded w-1/2 mb-4"></div>
-                    <div className="h-3 bg-gray-300 rounded w-2/3"></div>
-                </div>
-            </div>
+  return (
+    <div className="p-4"> 
+      <h2 className="text-2xl font-semibold mb-4 skeleton w-48 h-8"></h2> {/* Title Skeleton */}
 
-            {/* Skeleton Card 2 */}
-            <div className="card w-96 bg-gray-100 shadow-xl animate-pulse">
-                <div className="card-body">
-                    <div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-                    <div className="h-4 bg-gray-300 rounded w-1/2 mb-4"></div>
-                    <div className="h-3 bg-gray-300 rounded w-2/3"></div>
-                </div>
+      {/* List Item Skeletons */}
+      {[1, 2, 3].map((index) => (
+        <div key={index} className="bg-gray-100 p-4 rounded-lg mb-4">
+          <div className="flex justify-between items-start mb-2">
+            <div className="flex items-start">
+              <div className="btn btn-ghost btn-sm loading mr-2"></div> {/* Delete Button Skeleton */}
+              <div>
+                <div className="text-lg font-medium skeleton w-32 h-6 mb-1"></div> {/* Audio Name Skeleton */}
+                <div className="text-sm skeleton w-48 h-4"></div> {/* Date/Time Skeleton */}
+              </div>
             </div>
-
-            {/* Skeleton Card 3 */}
-            <div className="card w-96 bg-gray-100 shadow-xl animate-pulse">
-                <div className="card-body">
-                    <div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-                    <div className="h-4 bg-gray-300 rounded w-1/2 mb-4"></div>
-                    <div className="h-3 bg-gray-300 rounded w-2/3"></div>
-                </div>
+            <div className="flex items-start">
+              <div className="btn btn-ghost btn-sm loading mr-2"></div> {/* Arrow Button Skeleton */}
+              <div className="btn btn-ghost btn-sm loading"></div> {/* Edit Button Skeleton */}
             </div>
-
-            {/* Skeleton Card 4 */}
-            <div className="card w-96 bg-gray-100 shadow-xl animate-pulse">
-                <div className="card-body">
-                    <div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-                    <div className="h-4 bg-gray-300 rounded w-1/2 mb-4"></div>
-                    <div className="h-3 bg-gray-300 rounded w-2/3"></div>
-                </div>
-            </div>
+          </div>
+          <div className="skeleton w-full h-12"></div> {/* Content Placeholder */}
         </div>
+      ))}
 
-    );
-}
+      {/* Optional: Add a placeholder for a "Load More" button or similar */}
+      <div className="flex justify-center mt-4">
+        <div className="btn btn-ghost btn-lg loading"></div> {/* Load More Button Skeleton */}
+      </div>
+    </div>
+  );
+};
+
 export default NoteListSkeleton;

@@ -11,6 +11,9 @@ export const loginUser = async ({ usernameOrEmail, password }) => {
         return data;
     } catch (error) {
         console.error("Login error: ", error);
+        if (error.response?.status === 401 || error.response?.status === 400 || error.response?.status === 404) {
+            throw new Error("Invalid username or password. Please try again.");
+        }
         const message = error.response?.data?.message || "Login failed. Please try again.";
         throw new Error(message);
     }
@@ -21,7 +24,7 @@ export const registerUser = async ({ firstName, lastName, email, username, passw
         const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, { firstName, lastName, email, username, password });
         const maxAge = 60 * 60 * 24; // 1 day in seconds
         setCookie('access_token', data.access_token, maxAge);
-        setCookie('refresh_token', data.refresh_token, maxAge + 1);
+        setCookie('refresh_token', data.refreshToken, maxAge + 1);
         return data;
     } catch (error) {
         console.error("Registration error: ", error.response.data.message);

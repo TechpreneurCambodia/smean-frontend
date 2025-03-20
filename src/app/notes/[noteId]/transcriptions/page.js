@@ -8,6 +8,8 @@ import { convertToTimestamp } from '@/services/utils/convert-to-timestamp';
 import Rename from './details/Rename';
 import PlayBackComponent from '@/components/PlayBackComponent';
 import NoteListSkeleton from '@/components/Skeletons/NoteListSkeleton'; // Assuming this is the skeleton loader component
+import { Skeleton } from '@/components/ui/skeleton';
+import SpeanAudioSkeleton from '@/components/Skeletons/AudioSkeleton';
 
 const Page = () => {
     const params = useParams();
@@ -40,7 +42,7 @@ const Page = () => {
                                 <h1 className="text-5xl text-primary font-bold">
                                     <Rename />
                                 </h1>
-                                
+
                             </div>
                             <div>
                                 <PlayBackComponent audioUrl={`${process.env.NEXT_PUBLIC_API_URL_MEDIA}${note.noteSource.sourceUrl}`} />
@@ -53,7 +55,7 @@ const Page = () => {
                             <div className="w-1 h-screen bg-gray"></div>
                             <div className="w-full flex flex-col gap-4">
                                 <h1 className="text-4xl font-bold">សង្ខេបសំឡេងជាអក្សរ</h1>
-                                
+
                                 <div className="w-full flex flex-col gap-4">
                                     {transcripts && transcripts.map((transcript) => (
                                         <TranscriptCard
@@ -68,7 +70,9 @@ const Page = () => {
                         </div>
                     </>
                 ) : (
-                    <NoteListSkeleton />
+                    <>
+                        <SpeanAudioSkeleton />
+                    </>
                 )}
             </div>
         </Layout>

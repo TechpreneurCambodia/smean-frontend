@@ -1,13 +1,38 @@
-export default function Page() {
+"use client";
 
+import ActionButton from "@/components/ActionButton";
+import Layout from "@/components/Layout";
+import { useUser } from "@/hooks/UserContext";
+import { Skeleton } from "@mui/material";
+import { useEffect } from "react";
+import Welcome from "./home/Welcome";
+
+function Page() {
+    const { user, fetchUserInfo } = useUser();
+    useEffect(() => {
+        fetchUserInfo();
+    }, []);
     return (
-        <div className="flex items-center justify-center h-screen bg-gray-200">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-                <p>Landing page</p>
-                <a href="/login">Login</a>
-                <br></br>
-                <a href="/signup">Signup</a>
+        <Layout>
+            <div className="flex w-full h-full items-center justify-center bg-base-100 text-center z-1">
+                <div className="flex flex-col items-center gap-8">
+                    {user ? (
+                        <>
+                            <Welcome username={user ? user.firstName : "Guest"} />
+                            <ActionButton />
+                        </>
+                    ) : (
+                        <>
+                            <Skeleton variant="text" width={200} height={100} />
+                            <Skeleton variant="text" width={200} height={100} />
+                            <Skeleton variant="text" width={200} height={100} />
+                        </>
+                    )}
+
+                </div>
             </div>
-        </div>
+        </Layout>
     );
 }
+
+export default Page;

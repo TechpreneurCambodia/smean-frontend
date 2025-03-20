@@ -50,6 +50,7 @@ export default function Page() {
             <div className="mt-4">
               <InputField
                 type="text"
+                autoComplete="on"
                 name="usernameOrEmail"
                 placeholder="Username/Email Address"
                 value={form.usernameOrEmail}
