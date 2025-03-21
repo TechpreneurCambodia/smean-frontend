@@ -128,7 +128,7 @@ function UploadBox({ onFilesSelected }) {
                         type="file"
                         className="hidden"
                         onChange={onFileSelect}
-                        accept=".mp3,.wav,.mov"
+                        accept=".mp3,.wav,.mov, .ogg"
                         multiple
                     />
                 </div>
