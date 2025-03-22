@@ -16,19 +16,22 @@ export default function Page() {
     const [submissionComplete, setSubmissionComplete] = useState(false);
     const [selectedMinutes, setSelectedMinutes] = useState(3);
     const router = useRouter();
+
     const handleMinuteSelect = (minutes) => {
         setSelectedMinutes(minutes);
         console.log('Selected Minutes:', minutes);
-    }
+    };
+
     const handleNextClick = async () => {
         if (uploadedFiles.length === 0) {
             toast.error('Please upload at least one file before proceeding.');
             return;
         }
 
+        // Mark that submission has started.
         setSubmissionComplete(true);
-
         setIsUploading(true);
+
         try {
             const originalFiles = uploadedFiles.map(file => file.file);
             const res = await uploadAudio({ files: originalFiles, chunkDuration: selectedMinutes * 60 });
@@ -51,7 +54,6 @@ export default function Page() {
             toast.success('បានលុបឯកសារទាំងអស់ដោយជោគជ័យ!');
             return;
         }
-
         setUploadedFiles(files);
         setSubmissionComplete(false);
     };
@@ -86,10 +88,13 @@ export default function Page() {
                 <div className="flex justify-center">
                     <UploadBox onFilesSelected={handleFilesSelected} />
                 </div>
-                <div className="flex sm:flex-row flex-col gap-4 justify-between w-full max-w-4xl mx-auto">
-                    <Button text="បន្ទាប់" onClick={handleNextClick} disabled={isUploading} />
-                </div>
+                {/* Conditionally render the button only if not uploading */}
+                {!isUploading && (
+                    <div className="flex sm:flex-row flex-col gap-4 justify-between w-full max-w-4xl mx-auto">
+                        <Button text="បន្ទាប់" onClick={handleNextClick} disabled={isUploading} />
+                    </div>
+                )}
             </div>
-        </Layout >
+        </Layout>
     );
 }
